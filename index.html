@@ -1,0 +1,3353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>주인 잃은 우편가방 — 중학교 3학년 한국사 방탈출</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* 한지 · 먹 · 쪽빛 · 인주 팔레트 */
+      --bg-hanji: #f5efe0;
+      --bg-hanji-deep: #ebe1c9;
+      --bg-card: #fffdf7;
+      --bg-card-sub: #f9f4e6;
+      --ink: #1e2328;
+      --ink-soft: #4e5660;
+      --indigo: #1d3c63;
+      --indigo-hover: #142b48;
+      --indigo-tint: #e8eff7;
+      --ochre: #8c5210;
+      --ochre-bg: #fdf5e2;
+      --ochre-border: #d9a75a;
+      --vermilion: #b82020;
+      --vermilion-tint: #fdeaea;
+      --emerald: #0b6647;
+      --emerald-tint: #e6f6ef;
+      --border: #d4c7ae;
+      --shadow: 0 6px 20px rgba(30, 35, 40, 0.08);
+      --radius: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-hanji: #1b1916;
+        --bg-hanji-deep: #25221d;
+        --bg-card: #26231e;
+        --bg-card-sub: #302c25;
+        --ink: #f2ece1;
+        --ink-soft: #b8afa0;
+        --indigo: #5b93d6;
+        --indigo-hover: #76a8e3;
+        --indigo-tint: #1f2e42;
+        --ochre: #e2a44f;
+        --ochre-bg: #332717;
+        --ochre-border: #8c6229;
+        --vermilion: #f26363;
+        --vermilion-tint: #3b1e1e;
+        --emerald: #4cc397;
+        --emerald-tint: #18362b;
+        --border: #474035;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: 'Gowun Dodum', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--ink);
+      background-color: var(--bg-hanji);
+      background-image:
+        radial-gradient(rgba(160, 142, 110, 0.16) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.03) 100%);
+      background-size: 20px 20px, 100% 100%;
+    }
+
+    .serif {
+      font-family: 'Gowun Batang', Georgia, 'Batang', serif;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    button {
+      cursor: pointer;
+      min-height: 46px;
+      border-radius: 11px;
+      border: 1.5px solid transparent;
+      padding: 10px 18px;
+      font-weight: 700;
+      transition: transform 0.12s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    button:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--indigo);
+      outline-offset: 2px;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* 상단 고정 HUD 바 */
+    .hud-bar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--bg-card);
+      border-bottom: 2px solid var(--indigo);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hud-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hud-title {
+      font-family: 'Gowun Batang', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--indigo);
+    }
+
+    .hud-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      background: var(--bg-card-sub);
+      border: 1px solid var(--border);
+    }
+
+    .hud-pill.timer-warn {
+      background: var(--vermilion-tint);
+      color: var(--vermilion);
+      border-color: var(--vermilion);
+      animation: pulseWarn 1.2s infinite;
+    }
+
+    @keyframes pulseWarn {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.72; }
+    }
+
+    .hud-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 교사 화면 비밀 진입 버튼 (오른쪽 구석 44x44px) */
+    .teacher-secret-zone {
+      width: 44px;
+      height: 44px;
+      min-height: 44px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      opacity: 0.18;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-soft);
+      font-size: 0.75rem;
+    }
+
+    .teacher-secret-zone:hover {
+      opacity: 0.45;
+    }
+
+    /* 메인 컨테이너 */
+    .app-main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 20px 16px 80px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .card-physical {
+      background: var(--ochre-bg);
+      border: 2px solid var(--ochre-border);
+    }
+
+    .card-web {
+      background: var(--bg-card);
+      border: 2px solid var(--indigo);
+    }
+
+    /* 버튼 스타일 */
+    .btn-primary {
+      background: var(--indigo);
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--indigo-hover);
+    }
+
+    .btn-ochre {
+      background: var(--ochre);
+      color: #fff;
+    }
+
+    .btn-ochre:hover:not(:disabled) {
+      filter: brightness(1.08);
+    }
+
+    .btn-vermilion {
+      background: var(--vermilion);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: var(--bg-card);
+      color: var(--ink);
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      border-color: var(--indigo);
+      color: var(--indigo);
+    }
+
+    /* 배지 */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .tag-web {
+      background: var(--indigo-tint);
+      color: var(--indigo);
+    }
+
+    .tag-phys {
+      background: var(--ochre);
+      color: #fff;
+    }
+
+    .tag-done {
+      background: var(--emerald-tint);
+      color: var(--emerald);
+    }
+
+    /* 1500iD 방향 자물쇠 강조 경고 배지 */
+    .lock-warning-banner {
+      background: var(--vermilion-tint);
+      border: 2px solid var(--vermilion);
+      color: var(--vermilion);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* 한지 세로 괄선 편지지 */
+    .letter-paper {
+      font-family: 'Gowun Batang', Georgia, serif;
+      background-color: #fbf6e8;
+      background-image: repeating-linear-gradient(
+        to right,
+        transparent,
+        transparent 38px,
+        rgba(139, 115, 85, 0.16) 38px,
+        rgba(139, 115, 85, 0.16) 39px
+      );
+      color: #1f1c18;
+      border: 1.5px solid #cbbba0;
+      border-radius: 12px;
+      padding: 20px 18px;
+      line-height: 1.85;
+      font-size: 1.05rem;
+      box-shadow: inset 0 0 24px rgba(168, 144, 108, 0.15);
+    }
+
+    .sender-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #bfa988;
+    }
+
+    .sender-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--indigo);
+      background: #efe5cf;
+      flex-shrink: 0;
+    }
+
+    /* 사료 인용 상자 */
+    .source-box {
+      background: var(--bg-card-sub);
+      border-left: 4px solid var(--indigo);
+      padding: 14px 16px;
+      border-radius: 0 10px 10px 0;
+      margin: 12px 0;
+      font-size: 0.96rem;
+    }
+
+    /* 다이얼 자물쇠 UI */
+    .dial-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 18px 0;
+      flex-wrap: wrap;
+    }
+
+    .dial-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(180deg, #d7b97a 0%, #f5e5bd 50%, #c8a663 100%);
+      border: 2px solid #7c5c24;
+      border-radius: 12px;
+      padding: 6px;
+      width: 64px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+    }
+
+    .dial-unit button {
+      width: 100%;
+      min-height: 46px;
+      padding: 0;
+      background: rgba(30, 35, 40, 0.85);
+      color: #fff;
+      font-size: 1.1rem;
+      border-radius: 8px;
+    }
+
+    .dial-val {
+      font-family: 'Gowun Batang', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #1c1915;
+      padding: 8px 0;
+      user-select: none;
+    }
+
+    /* 4인 역할 그리드 */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    @media (max-width: 520px) {
+      .role-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .role-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card-sub);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .role-item img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* 자모 암호 원판 슬롯 */
+    .cipher-slots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+
+    .cipher-slot {
+      min-width: 54px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--bg-card-sub);
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .cipher-slot.active {
+      border-color: var(--indigo);
+      background: var(--indigo-tint);
+      box-shadow: 0 0 0 3px rgba(29, 60, 99, 0.18);
+    }
+
+    /* 레이어드 스탬프 그리드 */
+    .stamps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    @media (max-width: 540px) {
+      .stamps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stamp-card {
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      background: var(--bg-card-sub);
+      text-align: center;
+    }
+
+    /* 모달 오버레이 */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(15, 20, 26, 0.72);
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 2px solid var(--indigo);
+      border-radius: 16px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    /* 인쇄 전용 뷰 (교사용 한성 약도 A3 / 장소 플랩 카드) */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printArea, #printArea * {
+        visibility: visible;
+      }
+      #printArea {
+        position: fixed;
+        inset: 0;
+        background: #fff !important;
+        color: #000 !important;
+        padding: 12mm;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* 토스트 메시지 */
+    .toast-banner {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 80;
+      background: #1e2328;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+      max-width: 92vw;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 고정 HUD 바 -->
+  <header class="hud-bar no-print">
+    <div class="hud-left">
+      <span class="hud-title">📮 주인 잃은 우편가방</span>
+      <span id="hudPartBadge" class="tag tag-web">1부 · 개혁을 바란 사람들</span>
+      <span id="hudTeamBadge" class="hud-pill" style="display:none;">모둠: -</span>
+    </div>
+
+    <div class="hud-right">
+      <span id="hudTimer" class="hud-pill" title="남은 시간">⏳ 40:00</span>
+      <span id="hudStamps" class="hud-pill" title="남은 힌트 우표">
+        <img src="img/hint_stamp.png" alt="" style="width:18px;height:22px;object-fit:contain;" onerror="this.style.display='none'" />
+        <span>우표 5장</span>
+      </span>
+      <button id="secretAdminBtn" class="teacher-secret-zone" aria-label="교사 설정 열기" title="교사 설정 (3초 내 5회 터치)">⚙</button>
+    </div>
+  </header>
+
+  <!-- 메인 게임 스테이지 -->
+  <main id="appStage" class="app-main no-print"></main>
+
+  <!-- 교사용 인쇄 전용 컨테이너 -->
+  <div id="printArea" style="display:none;"></div>
+
+  <!-- 모달 컨테이너 -->
+  <div id="modalRoot"></div>
+
+  <script>
+    /* =========================================================================
+     * 1. 핵심 유틸리티: 한지 안전 이미지, WebAudio 효과음, 한글 자모 분해 해시 비교
+     * ========================================================================= */
+
+    // 깨진 이미지 아이콘 없이 조용히 숨김 처리하는 안전 이미지 태그 생성기
+    function safeImg(filename, alt = '', className = '', style = '') {
+      if (!filename) return '';
+      const src = filename.endsWith('.png') ? `img/${filename}` : `img/${filename}.png`;
+      return `<img src="${src}" alt="${alt}" class="${className}" style="${style}" onerror="this.style.display='none'" />`;
+    }
+
+    // WebAudio 도장 '쾅' 효과음 및 알림음 (외부 오디오 파일 불필요)
+    const SoundFX = {
+      ctx: null,
+      ensure() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().catch(() => {});
+        }
+      },
+      playStamp() {
+        try {
+          this.ensure();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(145, now);
+          osc.frequency.exponentialRampToValueAtTime(42, now + 0.16);
+          gain.gain.setValueAtTime(0.45, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.19);
+        } catch (e) {}
+      },
+      playSuccess() {
+        try {
+          this.ensure();
+          if (!this.ctx) return;
+          const now = this.ctx.currentTime;
+          [523.25, 659.25].forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+            gain.gain.setValueAtTime(0.18, now + idx * 0.09);
+            gain.gain.exponentialRampToValueAtTime(0.005, now + idx * 0.09 + 0.22);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now + idx * 0.09);
+            osc.stop(now + idx * 0.09 + 0.24);
+          });
+        } catch (e) {}
+      }
+    };
+
+    // 한글 음절 자모 분해 테이블
+    const CHO = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+    const JUNG = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+    const JONG = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+
+    function decomposeHangul(str) {
+      let out = '';
+      for (let i = 0; i < str.length; i++) {
+        const code = str.charCodeAt(i);
+        if (code >= 0xAC00 && code <= 0xD7A3) {
+          const offset = code - 0xAC00;
+          const choIdx = Math.floor(offset / 588);
+          const jungIdx = Math.floor((offset % 588) / 28);
+          const jongIdx = offset % 28;
+          out += CHO[choIdx] + JUNG[jungIdx] + JONG[jongIdx];
+        } else {
+          out += str[i];
+        }
+      }
+      return out;
+    }
+
+    function normalizeAnswer(raw) {
+      if (raw === null || raw === undefined) return '';
+      const cleaned = String(raw)
+        .toLowerCase()
+        .replace(/[\s·ㆍ.,!?'"「」『』()\[\]\-_/]/g, '');
+      return decomposeHangul(cleaned);
+    }
+
+    // 소스에 평문 정답을 남기지 않기 위한 동기식 이중 해시 함수
+    function hashAnswer(raw) {
+      const norm = normalizeAnswer(raw);
+      let h1 = 0x811c9dc5;
+      let h2 = 5381;
+      for (let i = 0; i < norm.length; i++) {
+        const c = norm.charCodeAt(i);
+        h1 ^= c;
+        h1 = Math.imul(h1, 0x01000193);
+        h2 = ((h2 << 5) + h2) ^ c;
+      }
+      return (h1 >>> 0).toString(16).padStart(8, '0') + '_' + (h2 >>> 0).toString(16).padStart(8, '0');
+    }
+
+    function verifyAnswer(userInput, expectedHashes) {
+      const userHash = hashAnswer(userInput);
+      const list = Array.isArray(expectedHashes) ? expectedHashes : [expectedHashes];
+      return list.includes(userHash);
+    }
+
+    // 커스텀 토스트 안내 (alert 대체)
+    let toastTimer = null;
+    function showToast(msg) {
+      let el = document.getElementById('globalToast');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'globalToast';
+        el.className = 'toast-banner no-print';
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.display = 'block';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.style.display = 'none';
+      }, 3200);
+    }
+
+    /* =========================================================================
+     * 2. 교사 설정 & 게임 진행 상태 관리 (localStorage + QR 파라미터 자동 수신)
+     * ========================================================================= */
+    const STORAGE_CONFIG_KEY = 'postbag_teacher_config_v2';
+    const STORAGE_STATE_KEY = 'postbag_game_state_v2';
+
+    const DEFAULT_CONFIG = {
+      pin: '7319',
+      part: 1, // 1: 1부(1876~1894), 2: 2부(1895~1910)
+      boxCodeP1: '4712',
+      boxCodeP2: '8063',
+      targetPlaceP2: '환구단', // 독립문·경복궁·경운궁·환구단·종로·우정총국
+      virtualLockMode: false,
+      vLockDirP1: '→↓←↑←↓',
+      vLockEngP1: 'EQUAL',
+      vLockDirP2: '←↓→↓',
+      vLockEngP2: 'RIGHT',
+      gasWebAppUrl: '' // Google Apps Script 결과 수집 웹 앱 URL
+    };
+
+    const DEFAULT_GAME_STATE = {
+      started: false,
+      teamName: '',
+      screen: 'start', // start | prologue | gate | hub | letter | meta | final | ending
+      prologueIdx: 0,
+      gateSolved: false,
+      activeLetterId: null, // 'l1' | 'l2' | 'l3' | 'l4'
+      letters: {
+        l1: { step: 0, done: false },
+        l2: { step: 0, done: false },
+        l3: { step: 0, done: false },
+        l4: { step: 0, done: false }
+      },
+      // 도장 4개 회전 상태 (0, 1, 2, 3)
+      stampRotations: [0, 0, 0, 0],
+      metaSolved: false,
+      finalSolved: false,
+      remainingSeconds: 40 * 60,
+      paused: false,
+      hintStamps: 5,
+      freeSecondHintVoucher: 0,
+      note22Shown: false,
+      usedHints: {}, // { 'l1_0_1': true }
+      resultSubmitted: false,
+      studentReply: ''
+    };
+
+    let teacherConfig = { ...DEFAULT_CONFIG };
+    let gameState = JSON.parse(JSON.stringify(DEFAULT_GAME_STATE));
+
+    function loadStorage() {
+      try {
+        const savedCfg = localStorage.getItem(STORAGE_CONFIG_KEY);
+        if (savedCfg) teacherConfig = { ...DEFAULT_CONFIG, ...JSON.parse(savedCfg) };
+      } catch (e) {}
+
+      // QR코드 URL 파라미터(?gas=..., ?part=...)가 있으면 자동 반영
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const gasParam = params.get('gas');
+        const partParam = params.get('part');
+        let updated = false;
+        if (gasParam && gasParam.startsWith('https://')) {
+          teacherConfig.gasWebAppUrl = gasParam.trim();
+          updated = true;
+        }
+        if (partParam === '1' || partParam === '2') {
+          teacherConfig.part = Number(partParam);
+          updated = true;
+        }
+        if (updated) saveConfig();
+      } catch (e) {}
+
+      try {
+        const savedState = localStorage.getItem(STORAGE_STATE_KEY);
+        if (savedState) {
+          const parsed = JSON.parse(savedState);
+          gameState = {
+            ...JSON.parse(JSON.stringify(DEFAULT_GAME_STATE)),
+            ...parsed,
+            letters: { ...DEFAULT_GAME_STATE.letters, ...(parsed.letters || {}) }
+          };
+        }
+      } catch (e) {}
+    }
+
+    function saveConfig() {
+      try {
+        localStorage.setItem(STORAGE_CONFIG_KEY, JSON.stringify(teacherConfig));
+      } catch (e) {}
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_STATE_KEY, JSON.stringify(gameState));
+      } catch (e) {}
+    }
+
+    /* =========================================================================
+     * 3. 40분 수업 타이머 및 22분 경과 '복동의 쪽지' 자동 이벤트
+     * ========================================================================= */
+    let timerInterval = null;
+
+    function startTimerLoop() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (!gameState.started || gameState.paused || gameState.screen === 'ending') return;
+        if (gameState.remainingSeconds > 0) {
+          gameState.remainingSeconds -= 1;
+
+          // 22분 경과 (남은 시간 18분 = 1080초 도달 시) 복동의 쪽지 1회 팝업
+          if (gameState.remainingSeconds === 18 * 60 && !gameState.note22Shown) {
+            gameState.note22Shown = true;
+            gameState.freeSecondHintVoucher += 1;
+            showBokdongNote22Modal();
+          }
+
+          if (gameState.remainingSeconds % 5 === 0) saveState();
+          updateHud();
+        }
+      }, 1000);
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function updateHud() {
+      const partBadge = document.getElementById('hudPartBadge');
+      const teamBadge = document.getElementById('hudTeamBadge');
+      const timerEl = document.getElementById('hudTimer');
+      const stampsEl = document.getElementById('hudStamps');
+
+      partBadge.textContent = teacherConfig.part === 1
+        ? '1부 · 개혁을 바란 사람들'
+        : '2부 · 나라를 지키려 한 사람들';
+
+      if (gameState.started && gameState.teamName) {
+        teamBadge.style.display = 'inline-flex';
+        teamBadge.textContent = `모둠: ${gameState.teamName}`;
+      } else {
+        teamBadge.style.display = 'none';
+      }
+
+      timerEl.textContent = `${gameState.paused ? '⏸' : '⏳'} ${formatTime(gameState.remainingSeconds)}`;
+      if (gameState.remainingSeconds <= 300 && gameState.started) {
+        timerEl.classList.add('timer-warn');
+      } else {
+        timerEl.classList.remove('timer-warn');
+      }
+
+      const voucherTxt = gameState.freeSecondHintVoucher > 0 ? ` (+무료권 ${gameState.freeSecondHintVoucher})` : '';
+      stampsEl.querySelector('span').textContent = `우표 ${gameState.hintStamps}장${voucherTxt}`;
+    }
+
+    function showBokdongNote22Modal() {
+      const modalRoot = document.getElementById('modalRoot');
+      const portrait = teacherConfig.part === 1 ? 'bokdong_1895_smile.png' : 'bokdong_1910_smile.png';
+      modalRoot.innerHTML = `
+        <div class="modal-backdrop">
+          <div class="modal-box" style="border-color: var(--ochre);">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+              ${safeImg(portrait, '복동', 'sender-avatar')}
+              <div>
+                <span class="tag tag-phys">긴급 전보 · 22분 경과</span>
+                <h3 class="serif" style="font-size:1.25rem;margin-top:4px;">우체부 복동의 응원 쪽지</h3>
+              </div>
+            </div>
+            <p style="margin-bottom:14px;">
+              "시간이 절반 넘게 흘렀구려! 배달이 막히는 곳이 있다면 주저 말고 나에게 물어보게.
+              특별히 <strong>두 번째 핵심 귀띔 무료권 1장</strong>을 넣어 두었으니 요긴하게 쓰시게나!"
+            </p>
+            <div style="text-align:right;">
+              <button class="btn-primary" onclick="closeModal()">고맙소, 계속 배달하겠소!</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* =========================================================================
+     * 4. 재사용 가능한 퍼즐 & 인터랙션 엔진 (2단계·3단계 콘텐츠에서 호출)
+     * ========================================================================= */
+
+    // (A) 24자모 암호 원판 SVG 렌더러
+    const JAMO_24 = ['ㄱ','ㄴ','ㄷ','ㄹ','ㅁ','ㅂ','ㅅ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ','ㅏ','ㅑ','ㅓ','ㅕ','ㅗ','ㅛ','ㅜ','ㅠ','ㅡ','ㅣ'];
+
+    function renderCipherDiskComponent({ cipherChars, keySchedule, containerId }) {
+      // keySchedule: 배열 (예: [3,3,3,3,3,3] 또는 [1,8,9,4,1,8])
+      let currentShift = 0;
+      let selectedSlot = 0;
+
+      const wrap = document.getElementById(containerId);
+      if (!wrap) return;
+
+      function draw() {
+        const targetK = keySchedule[selectedSlot] ?? keySchedule[0] ?? 0;
+        const cx = 160, cy = 160, rOuter = 142, rMid = 104, rInner = 66;
+        let outerLabels = '';
+        let innerLabels = '';
+        let spokes = '';
+
+        for (let i = 0; i < 24; i++) {
+          const angleDeg = (i * 15) - 90;
+          const angleRad = (angleDeg * Math.PI) / 180;
+          const nextRad = (((i + 1) * 15 - 90) * Math.PI) / 180;
+          const midRad = ((angleDeg + 7.5) * Math.PI) / 180;
+
+          // 방사형 구분선
+          const x1 = cx + rInner * Math.cos(angleRad);
+          const y1 = cy + rInner * Math.sin(angleRad);
+          const x2 = cx + rOuter * Math.cos(angleRad);
+          const y2 = cy + rOuter * Math.sin(angleRad);
+          spokes += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#8c7a5b" stroke-width="1" />`;
+
+          // 바깥 고정 링 글자
+          const ox = cx + ((rOuter + rMid) / 2) * Math.cos(midRad);
+          const oy = cy + ((rOuter + rMid) / 2) * Math.sin(midRad);
+          const isOuterMatch = JAMO_24[i] === cipherChars[selectedSlot];
+          outerLabels += `
+            <text x="${ox.toFixed(1)}" y="${oy.toFixed(1)}" text-anchor="middle" dominant-baseline="central"
+              font-size="14" font-weight="700" fill="${isOuterMatch ? '#b82020' : '#1e2328'}">
+              ${JAMO_24[i]}
+            </text>
+          `;
+
+          // 안쪽 회전 링 글자: J[(i - currentShift) mod 24], 글자는 항상 똑바로 서 있게(회전 0도) 배치
+          const innerIdx = (i - currentShift + 240) % 24;
+          const ix = cx + ((rMid + rInner) / 2) * Math.cos(midRad);
+          const iy = cy + ((rMid + rInner) / 2) * Math.sin(midRad);
+          innerLabels += `
+            <text x="${ix.toFixed(1)}" y="${iy.toFixed(1)}" text-anchor="middle" dominant-baseline="central"
+              font-size="14" font-weight="700" fill="${isOuterMatch ? '#1d3c63' : '#4e5660'}">
+              ${JAMO_24[innerIdx]}
+            </text>
+          `;
+        }
+
+        const currentOuterChar = cipherChars[selectedSlot];
+        const outerIdx = JAMO_24.indexOf(currentOuterChar);
+        const mappedInnerChar = outerIdx >= 0 ? JAMO_24[(outerIdx - currentShift + 240) % 24] : '?';
+
+        wrap.innerHTML = `
+          <div style="background:var(--bg-card-sub);border:1.5px solid var(--border);border-radius:12px;padding:14px;margin:12px 0;">
+            <div style="text-align:center;font-size:0.92rem;font-weight:700;color:var(--indigo);margin-bottom:8px;">
+              현재 <strong>[${selectedSlot + 1}번째 암호 글자: ${currentOuterChar}]</strong> 해독 중 → 안쪽 원판을 <strong>[${targetK}칸]</strong>으로 맞추시오
+            </div>
+
+            <div class="cipher-slots">
+              ${cipherChars.map((ch, idx) => `
+                <div class="cipher-slot ${idx === selectedSlot ? 'active' : ''}" data-slot="${idx}">
+                  <div style="font-size:0.75rem;color:var(--ink-soft);">${idx + 1}번 (${keySchedule[idx]}칸)</div>
+                  <div class="serif" style="font-size:1.25rem;font-weight:700;">${ch}</div>
+                </div>
+              `).join('')}
+            </div>
+
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+              <svg viewBox="0 0 320 320" style="width:100%;max-width:300px;height:auto;background:#fbf5e6;border-radius:50%;box-shadow:0 4px 14px rgba(0,0,0,0.12);">
+                <circle cx="${cx}" cy="${cy}" r="${rOuter}" fill="#f4ead2" stroke="#7c5c24" stroke-width="3" />
+                <circle cx="${cx}" cy="${cy}" r="${rMid}" fill="#fffdf7" stroke="#7c5c24" stroke-width="2" />
+                <circle cx="${cx}" cy="${cy}" r="${rInner}" fill="#e8eff7" stroke="#1d3c63" stroke-width="2" />
+                ${spokes}
+                ${outerLabels}
+                ${innerLabels}
+                <text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="central" font-size="16" font-weight="700" fill="#1d3c63">
+                  ${currentShift}칸
+                </text>
+              </svg>
+
+              <div style="display:flex;align-items:center;gap:12px;">
+                <button type="button" class="btn-outline" id="${containerId}_prev">◀ 반시계 (-1)</button>
+                <span style="font-weight:700;min-width:95px;text-align:center;">
+                  바깥 <span style="color:var(--vermilion);">${currentOuterChar}</span> → 안쪽 <span style="color:var(--indigo);">${mappedInnerChar}</span>
+                </span>
+                <button type="button" class="btn-outline" id="${containerId}_next">시계 (+1) ▶</button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        wrap.querySelectorAll('.cipher-slot').forEach(el => {
+          el.onclick = () => {
+            selectedSlot = Number(el.dataset.slot);
+            draw();
+          };
+        });
+        document.getElementById(`${containerId}_prev`).onclick = () => {
+          currentShift = (currentShift - 1 + 24) % 24;
+          draw();
+        };
+        document.getElementById(`${containerId}_next`).onclick = () => {
+          currentShift = (currentShift + 1) % 24;
+          draw();
+        };
+      }
+
+      draw();
+    }
+
+    // (B) 레이어드 스탬프 4겹 합성 SVG 렌더러 (1부 엽서 번호 / 2부 한성 약도 배달길+✕)
+    function renderLayeredMetaSVG(part, rotations) {
+      // 정답 회전: 보기 순서 [위(0), 오른쪽(1), 아래(2), 왼쪽(3)] 중 정답 위치가 p일 때 회전수는 (4 - p) % 4
+      // 1부 정답 인덱스: ① 치외법권(p=2 → rot=2), ② 급진개화파(p=1 → rot=3), ③ 일본군축출(p=3 → rot=1), ④ 일본의내정간섭(p=2 → rot=2)
+      // 2부 정답 인덱스: ① 만민공동회(p=1 → rot=3), ② 황제전제정치(p=2 → rot=2), ③ 국제법상불법(p=3 → rot=1), ④ 국권피탈(p=1 → rot=3)
+      const targetRots = part === 1 ? [2, 3, 1, 2] : [3, 2, 1, 3];
+
+      const PLACES = {
+        '경복궁': { x: 190, y: 70 },
+        '우정총국': { x: 265, y: 120 },
+        '종로': { x: 240, y: 140 },
+        '독립문': { x: 95, y: 130 },
+        '경운궁': { x: 175, y: 190 },
+        '환구단': { x: 215, y: 205 }
+      };
+
+      // 4개 층에 대한 가로 줄무늬 clipPath 생성 (두께 3.5, 간격 14, i번째 줄)
+      let clipDefs = '';
+      for (let layer = 0; layer < 4; layer++) {
+        let rects = '';
+        for (let y = layer * 3.5; y < 300; y += 14) {
+          rects += `<rect x="0" y="${y}" width="400" height="3.6" />`;
+        }
+        clipDefs += `<clipPath id="stripeClip_${layer}">${rects}</clipPath>`;
+      }
+
+      // 숨길 그래픽 요소 생성
+      let secretGraphic = '';
+      if (part === 1) {
+        const code = teacherConfig.boxCodeP1 || '4712';
+        secretGraphic = `
+          <rect x="95" y="95" width="210" height="110" rx="14" fill="none" stroke="#b82020" stroke-width="4" stroke-dasharray="8 5" />
+          <text x="200" y="166" text-anchor="middle" font-family="'Gowun Batang', serif" font-size="68" font-weight="700" letter-spacing="10" fill="#b82020">
+            ${code}
+          </text>
+        `;
+      } else {
+        const dest = PLACES[teacherConfig.targetPlaceP2] || PLACES['환구단'];
+        // 출발점: 한성 우체사 (종로 부근 248, 132)
+        secretGraphic = `
+          <path d="M 248 132 Q ${(248 + dest.x) / 2} ${(132 + dest.y) / 2 - 25} ${dest.x} ${dest.y}"
+            fill="none" stroke="#b82020" stroke-width="5" stroke-dasharray="10 6" stroke-linecap="round" />
+          <g transform="translate(${dest.x}, ${dest.y})">
+            <circle cx="0" cy="0" r="22" fill="rgba(184,32,32,0.14)" stroke="#b82020" stroke-width="3" />
+            <line x1="-13" y1="-13" x2="13" y2="13" stroke="#b82020" stroke-width="6" stroke-linecap="round" />
+            <line x1="13" y1="-13" x2="-13" y2="13" stroke="#b82020" stroke-width="6" stroke-linecap="round" />
+          </g>
+        `;
+      }
+
+      let layersSvg = '';
+      for (let i = 0; i < 4; i++) {
+        const diffDeg = ((rotations[i] - targetRots[i] + 4) % 4) * 90;
+        layersSvg += `
+          <g clip-path="url(#stripeClip_${i})">
+            <g transform="rotate(${diffDeg} 200 150)">
+              ${secretGraphic}
+            </g>
+          </g>
+        `;
+      }
+
+      // 2부일 경우 한성 성곽 및 장소 6곳 기본 레이어
+      let baseMapSvg = '';
+      if (part === 2) {
+        const placeDots = Object.entries(PLACES).map(([name, pt]) => `
+          <circle cx="${pt.x}" cy="${pt.y}" r="5" fill="#1d3c63" />
+          <text x="${pt.x}" y="${pt.y - 9}" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2328">${name}</text>
+        `).join('');
+        baseMapSvg = `
+          <polygon points="140,42 265,48 325,115 305,225 185,252 125,195 120,105"
+            fill="rgba(212,199,174,0.22)" stroke="#6b5c43" stroke-width="3" stroke-dasharray="6 3" />
+          <line x1="120" y1="135" x2="315" y2="142" stroke="#9e8b6c" stroke-width="4" />
+          <line x1="190" y1="70" x2="185" y2="235" stroke="#9e8b6c" stroke-width="3.5" />
+          <circle cx="248" cy="132" r="4" fill="#8c5210" />
+          <text x="275" y="136" font-size="10" font-weight="700" fill="#8c5210">한성우체사</text>
+          ${placeDots}
+        `;
+      }
+
+      const allAligned = rotations.every((r, idx) => r === targetRots[idx]);
+
+      return {
+        allAligned,
+        svg: `
+          <svg viewBox="0 0 400 300" style="width:100%;max-width:480px;height:auto;border-radius:12px;border:3px solid ${allAligned ? 'var(--emerald)' : 'var(--border)'};background:#f9f3e3;box-shadow:var(--shadow);">
+            <defs>${clipDefs}</defs>
+            ${baseMapSvg}
+            ${layersSvg}
+          </svg>
+        `
+      };
+    }
+
+    /* =========================================================================
+     * 5. Google Apps Script 결과 자동 전송 모듈
+     * ========================================================================= */
+    async function submitResultToTeacher() {
+      const replyInput = document.getElementById('studentReplyInput');
+      const replyText = replyInput ? replyInput.value.trim() : gameState.studentReply;
+      if (!replyText) {
+        showToast('복동에게 보내는 답장을 먼저 작성해 주세요!');
+        return;
+      }
+
+      gameState.studentReply = replyText;
+      saveState();
+
+      if (!teacherConfig.gasWebAppUrl) {
+        showToast('교사 화면에 Apps Script URL이 아직 설정되지 않았습니다. 학습지에 작성해 주세요!');
+        return;
+      }
+
+      const btn = document.getElementById('btnSendResult');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = '⏳ 선생님께 전송 중...';
+      }
+
+      const elapsedSec = Math.max(0, 40 * 60 - gameState.remainingSeconds);
+      const grade = gameState.hintStamps >= 5 ? '금' : gameState.hintStamps >= 3 ? '은' : '동';
+
+      const payload = {
+        part: teacherConfig.part === 1 ? '1부(1876~1894)' : '2부(1895~1910)',
+        teamName: gameState.teamName || '미입력 모둠',
+        elapsedTime: formatTime(elapsedSec),
+        remainingStamps: `${gameState.hintStamps}장`,
+        grade: `${grade}등급`,
+        reply: replyText
+      };
+
+      try {
+        await fetch(teacherConfig.gasWebAppUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        gameState.resultSubmitted = true;
+        saveState();
+        SoundFX.playSuccess();
+        showToast('✅ 선생님 스프레드시트로 배달 결과가 전송되었습니다!');
+        renderApp();
+      } catch (err) {
+        showToast('❌ 전송 중 네트워크 오류가 발생했습니다. 다시 시도해 주세요.');
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = '📮 선생님께 배달 결과 전송';
+        }
+      }
+    }
+
+    /* =========================================================================
+     * 6. 교사 관리 화면 (비밀 터치 5회 + PIN 7319 + 인쇄 화면)
+     * ========================================================================= */
+    let secretTapTimes = [];
+    document.getElementById('secretAdminBtn').addEventListener('click', () => {
+      const now = Date.now();
+      secretTapTimes = secretTapTimes.filter(t => now - t < 3000);
+      secretTapTimes.push(now);
+      if (secretTapTimes.length >= 5) {
+        secretTapTimes = [];
+        openTeacherPinModal();
+      }
+    });
+
+    function openTeacherPinModal() {
+      const modalRoot = document.getElementById('modalRoot');
+      modalRoot.innerHTML = `
+        <div class="modal-backdrop">
+          <div class="modal-box" style="max-width:400px;">
+            <h3 class="serif" style="font-size:1.25rem;color:var(--indigo);margin-bottom:8px;">🔐 교사 관리 화면 인증</h3>
+            <p style="font-size:0.92rem;color:var(--ink-soft);margin-bottom:14px;">교사용 비밀번호 4자리를 입력하세요. (기본값: 7319)</p>
+            <input type="password" id="teacherPinInput" maxlength="8" inputmode="numeric" placeholder="비밀번호 입력"
+              style="width:100%;padding:12px;border-radius:10px;border:1.5px solid var(--border);margin-bottom:14px;font-size:1.1rem;" />
+            <div style="display:flex;justify-content:flex-end;gap:8px;">
+              <button class="btn-outline" onclick="closeModal()">취소</button>
+              <button class="btn-primary" onclick="checkTeacherPin()">확인</button>
+            </div>
+          </div>
+        </div>
+      `;
+      setTimeout(() => document.getElementById('teacherPinInput')?.focus(), 50);
+    }
+
+    function checkTeacherPin() {
+      const val = document.getElementById('teacherPinInput')?.value || '';
+      if (val === teacherConfig.pin) {
+        openTeacherDashboard();
+      } else {
+        showToast('비밀번호가 일치하지 않습니다.');
+      }
+    }
+
+    function openTeacherDashboard() {
+      const places = ['독립문', '경복궁', '경운궁', '환구단', '종로', '우정총국'];
+      const placeOptions = places.map(p =>
+        `<option value="${p}" ${teacherConfig.targetPlaceP2 === p ? 'selected' : ''}>${p}</option>`
+      ).join('');
+
+      const shareUrl = teacherConfig.gasWebAppUrl
+        ? `${window.location.origin}${window.location.pathname}?gas=${encodeURIComponent(teacherConfig.gasWebAppUrl)}&part=${teacherConfig.part}`
+        : `${window.location.origin}${window.location.pathname}?part=${teacherConfig.part}`;
+
+      const modalRoot = document.getElementById('modalRoot');
+      modalRoot.innerHTML = `
+        <div class="modal-backdrop">
+          <div class="modal-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--border);padding-bottom:10px;margin-bottom:14px;">
+              <div>
+                <h3 class="serif" style="font-size:1.3rem;color:var(--indigo);">🛠️ 교사 수업 제어 및 설정</h3>
+                <p style="font-size:0.84rem;color:var(--vermilion);font-weight:700;">※ 모든 모둠 기기에서 차시·상자 번호·✕ 장소를 같게 맞추세요.</p>
+              </div>
+              <button class="btn-outline" onclick="closeModal()">닫기 ✕</button>
+            </div>
+
+            <div style="display:grid;gap:14px;">
+              <!-- 1. 차시 및 메타 정답 설정 -->
+              <div style="background:var(--bg-card-sub);padding:14px;border-radius:12px;border:1px solid var(--border);">
+                <strong style="display:block;margin-bottom:8px;color:var(--indigo);">1. 수업 차시 및 메타 퍼즐 설정</strong>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:10px;">
+                  <div>
+                    <label style="font-size:0.84rem;font-weight:700;">오늘 차시</label>
+                    <select id="cfgPart" style="width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);margin-top:4px;">
+                      <option value="1" ${teacherConfig.part === 1 ? 'selected' : ''}>1부 (1876~1894)</option>
+                      <option value="2" ${teacherConfig.part === 2 ? 'selected' : ''}>2부 (1895~1910)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size:0.84rem;font-weight:700;">1부 나무상자 번호</label>
+                    <input type="text" id="cfgBoxP1" maxlength="4" value="${teacherConfig.boxCodeP1}"
+                      style="width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);margin-top:4px;" />
+                  </div>
+                  <div>
+                    <label style="font-size:0.84rem;font-weight:700;">2부 약도 ✕ 정답 장소</label>
+                    <select id="cfgPlaceP2" style="width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);margin-top:4px;">
+                      ${placeOptions}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. 오프라인 실물 도구 / 가상 자물쇠 모드 -->
+              <div style="background:var(--ochre-bg);padding:14px;border-radius:12px;border:1px solid var(--ochre-border);">
+                <label style="display:flex;align-items:center;gap:8px;font-weight:700;color:var(--ochre);cursor:pointer;">
+                  <input type="checkbox" id="cfgVirtualMode" ${teacherConfig.virtualLockMode ? 'checked' : ''} style="width:20px;height:20px;" />
+                  <span>가상 자물쇠 모드 켜기 (실물 자물쇠가 없을 때만 체크)</span>
+                </label>
+                <p style="font-size:0.82rem;color:var(--ink-soft);margin-top:4px;">
+                  꺼짐 상태(기본)에서는 교실의 실물 자물쇠(1500iD 방향 · 5글자 영어 · 4자리 숫자)를 직접 열도록 안내합니다.
+                </p>
+              </div>
+
+              <!-- 3. Google Apps Script 결과 수집 URL -->
+              <div style="background:var(--bg-card-sub);padding:14px;border-radius:12px;border:1px solid var(--border);">
+                <strong style="display:block;margin-bottom:6px;color:var(--indigo);">2. 결과 자동 수집 (Google Apps Script 웹 앱 URL)</strong>
+                <input type="url" id="cfgGasUrl" value="${teacherConfig.gasWebAppUrl}" placeholder="https://script.google.com/macros/s/.../exec"
+                  style="width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);font-size:0.88rem;" />
+                <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+                  <button type="button" class="btn-outline" style="font-size:0.85rem;min-height:38px;padding:6px 12px;" onclick="copyQrShareLink('${shareUrl}')">
+                    🔗 QR코드용 자동연결 URL 복사
+                  </button>
+                </div>
+              </div>
+
+              <!-- 4. 수업 중 실시간 개입 제어 -->
+              <div style="background:var(--bg-card-sub);padding:14px;border-radius:12px;border:1px solid var(--border);">
+                <strong style="display:block;margin-bottom:8px;color:var(--indigo);">3. 실시간 수업 제어 (도장 · 시간 · 우표)</strong>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="grantStampForce(0)">도장① 지급</button>
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="grantStampForce(1)">도장② 지급</button>
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="grantStampForce(2)">도장③ 지급</button>
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="grantStampForce(3)">도장④ 지급</button>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="adjustStamps(1)">우표 +1</button>
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="adjustStamps(-1)">우표 -1</button>
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="adjustTime(300)">시간 +5분</button>
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="togglePauseTimer()">${gameState.paused ? '▶ 타이머 재개' : '⏸ 일시정지'}</button>
+                </div>
+              </div>
+
+              <!-- 5. 교사용 코르크 보드 인쇄물 출력 -->
+              <div style="background:var(--bg-card-sub);padding:14px;border-radius:12px;border:1px solid var(--border);">
+                <strong style="display:block;margin-bottom:8px;color:var(--indigo);">4. 2부 코르크 보드용 인쇄 자료</strong>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                  <button class="btn-ochre" style="min-height:40px;font-size:0.88rem;" onclick="printHanseongMap()">🗺️ 한성 약도 크게 인쇄 (A3 가로)</button>
+                  <button class="btn-ochre" style="min-height:40px;font-size:0.88rem;" onclick="printLocationFlapCards()">🏷️ 장소 플랩 카드 6장 인쇄</button>
+                </div>
+              </div>
+
+              <!-- 6. 비밀번호 변경 및 초기화 -->
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:6px;">
+                <div style="display:flex;gap:6px;align-items:center;">
+                  <input type="text" id="cfgNewPin" maxlength="8" placeholder="새 비밀번호" style="width:120px;padding:8px;border-radius:8px;border:1px solid var(--border);" />
+                  <button class="btn-outline" style="min-height:38px;padding:6px 10px;font-size:0.85rem;" onclick="changeTeacherPin()">비밀번호 변경</button>
+                </div>
+                <button id="btnResetAll" class="btn-vermilion" style="min-height:40px;font-size:0.88rem;" onclick="confirmResetProgress()">⚠️ 진행 상황 처음부터 초기화</button>
+              </div>
+
+              <div style="display:flex;justify-content:flex-end;gap:8px;border-top:1.5px solid var(--border);padding-top:12px;">
+                <button class="btn-primary" onclick="saveTeacherDashboard()">설정 저장 및 적용</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function saveTeacherDashboard() {
+      const newPart = Number(document.getElementById('cfgPart').value);
+      const boxP1 = document.getElementById('cfgBoxP1').value.trim();
+      const placeP2 = document.getElementById('cfgPlaceP2').value;
+      const vMode = document.getElementById('cfgVirtualMode').checked;
+      const gasUrl = document.getElementById('cfgGasUrl').value.trim();
+
+      const partChanged = teacherConfig.part !== newPart;
+      teacherConfig.part = newPart;
+      if (/^\d{4}$/.test(boxP1)) teacherConfig.boxCodeP1 = boxP1;
+      teacherConfig.targetPlaceP2 = placeP2;
+      teacherConfig.virtualLockMode = vMode;
+      teacherConfig.gasWebAppUrl = gasUrl;
+      saveConfig();
+
+      if (partChanged) {
+        gameState = JSON.parse(JSON.stringify(DEFAULT_GAME_STATE));
+        saveState();
+      }
+
+      closeModal();
+      updateHud();
+      renderApp();
+      showToast('교사 설정이 저장되었습니다.');
+    }
+
+    function copyQrShareLink(url) {
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('QR코드용 자동연결 주소가 복사되었습니다!');
+      } catch (e) {
+        showToast(url);
+      }
+      document.body.removeChild(ta);
+    }
+
+    function grantStampForce(idx) {
+      const keys = ['l1', 'l2', 'l3', 'l4'];
+      gameState.letters[keys[idx]].done = true;
+      gameState.letters[keys[idx]].step = 3;
+      saveState();
+      SoundFX.playStamp();
+      showToast(`도장 ${['①','②','③','④'][idx]}이(가) 강제 지급되었습니다.`);
+      renderApp();
+    }
+
+    function adjustStamps(delta) {
+      gameState.hintStamps = Math.max(0, gameState.hintStamps + delta);
+      saveState();
+      updateHud();
+      showToast(`힌트 우표: ${gameState.hintStamps}장`);
+    }
+
+    function adjustTime(sec) {
+      gameState.remainingSeconds = Math.max(0, gameState.remainingSeconds + sec);
+      saveState();
+      updateHud();
+      showToast(`남은 시간: ${formatTime(gameState.remainingSeconds)}`);
+    }
+
+    function togglePauseTimer() {
+      gameState.paused = !gameState.paused;
+      saveState();
+      updateHud();
+      openTeacherDashboard();
+    }
+
+    function changeTeacherPin() {
+      const np = document.getElementById('cfgNewPin')?.value.trim();
+      if (np && np.length >= 4) {
+        teacherConfig.pin = np;
+        saveConfig();
+        showToast('교사 비밀번호가 변경되었습니다.');
+      } else {
+        showToast('4자리 이상 입력해 주세요.');
+      }
+    }
+
+    let resetConfirmArmed = false;
+    function confirmResetProgress() {
+      const btn = document.getElementById('btnResetAll');
+      if (!resetConfirmArmed) {
+        resetConfirmArmed = true;
+        btn.textContent = '정말 초기화할까요? 한 번 더 누르면 실행';
+        setTimeout(() => {
+          resetConfirmArmed = false;
+          if (btn) btn.textContent = '⚠️ 진행 상황 처음부터 초기화';
+        }, 4000);
+      } else {
+        resetConfirmArmed = false;
+        gameState = JSON.parse(JSON.stringify(DEFAULT_GAME_STATE));
+        saveState();
+        closeModal();
+        updateHud();
+        renderApp();
+        showToast('진행 상황이 처음부터 초기화되었습니다.');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modalRoot').innerHTML = '';
+    }
+
+    /* =========================================================================
+     * 7. 교사용 인쇄 화면 (한성 약도 A3 가로 / 장소 플랩 카드 6장)
+     * ========================================================================= */
+    function printHanseongMap() {
+      closeModal();
+      const printArea = document.getElementById('printArea');
+      printArea.style.display = 'block';
+      printArea.innerHTML = `
+        <div style="text-align:center;font-family:'Gowun Batang',serif;">
+          <h1 style="font-size:26pt;margin-bottom:6px;">한성 우체사 배달 구역 약도 (코르크 보드 게시용)</h1>
+          <p style="font-size:12pt;color:#444;margin-bottom:14px;">레이어드 스탬프가 가리킨 장소의 플랩 카드를 들춰 기록 상자 번호를 확인하세요.</p>
+          <svg viewBox="0 0 400 300" style="width:100%;max-height:165mm;border:3px solid #222;background:#fcf9f0;">
+            <polygon points="140,42 265,48 325,115 305,225 185,252 125,195 120,105"
+              fill="none" stroke="#333" stroke-width="3.5" stroke-dasharray="8 4" />
+            <line x1="120" y1="135" x2="315" y2="142" stroke="#888" stroke-width="5" />
+            <line x1="190" y1="70" x2="185" y2="235" stroke="#888" stroke-width="4" />
+            <circle cx="248" cy="132" r="5" fill="#000" />
+            <text x="278" y="136" font-size="11" font-weight="bold">출발: 한성 우체사</text>
+            ${[
+              ['경복궁', 190, 70], ['우정총국', 265, 120], ['종로', 240, 140],
+              ['독립문', 95, 130], ['경운궁', 175, 190], ['환구단', 215, 205]
+            ].map(([n, x, y]) => `
+              <circle cx="${x}" cy="${y}" r="7" fill="#1d3c63" />
+              <text x="${x}" y="${y - 12}" text-anchor="middle" font-size="14" font-weight="bold">${n}</text>
+            `).join('')}
+          </svg>
+        </div>
+      `;
+      setTimeout(() => {
+        window.print();
+        printArea.style.display = 'none';
+      }, 200);
+    }
+
+    function printLocationFlapCards() {
+      closeModal();
+      const cardsInfo = [
+        ['독립문', '서재필의 건의로 영은문이 헐린 부근에 세운 자주독립의 상징 (교과서 158쪽)'],
+        ['경복궁', '1896년 고종은 이곳을 떠나 러시아 공사관으로 거처를 옮겼다 (아관 파천)'],
+        ['경운궁', '고종은 아관 파천 1년 만에 이곳으로 돌아왔다 (교과서 158쪽)'],
+        ['환구단', '1897년 고종이 황제로 즉위하며 대한 제국 수립을 선포했다'],
+        ['종로', '독립 협회가 민중 집회인 만민 공동회를 연 거리'],
+        ['우정총국', '1884년 개국 축하연에서 급진 개화파가 갑신정변을 일으켰다']
+      ];
+      const printArea = document.getElementById('printArea');
+      printArea.style.display = 'block';
+      printArea.innerHTML = `
+        <div style="font-family:'Gowun Dodum',sans-serif;">
+          <h2 style="text-align:center;margin-bottom:10px;">코르크 보드 부착용 장소 플랩 카드 6장 (점선을 따라 자른 뒤 윗변만 테이프로 고정)</h2>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
+            ${cardsInfo.map(([place, desc]) => {
+              const isTarget = place === teacherConfig.targetPlaceP2;
+              return `
+                <div style="border:2px dashed #333;padding:16px;border-radius:8px;min-height:155px;display:flex;flex-direction:column;justify-content:space-between;">
+                  <div style="font-size:11pt;color:#666;border-bottom:1px solid #ccc;padding-bottom:4px;">▲ 이 윗변만 한성 약도 위 [${place}] 자리에 테이프로 붙이세요</div>
+                  <div style="text-align:center;padding:14px 0;">
+                    ${isTarget
+                      ? `<div style="font-size:13pt;font-weight:bold;color:#b82020;">복동의 기록 상자 번호</div>
+                         <div style="font-size:28pt;font-weight:bold;letter-spacing:6px;margin-top:4px;">${teacherConfig.boxCodeP2}</div>`
+                      : `<div style="font-size:18pt;font-weight:bold;color:#555;">여기가 아닐세</div>`}
+                  </div>
+                  <div style="font-size:10.5pt;background:#f4f4f4;padding:8px;border-radius:6px;">
+                    <strong>${place}:</strong> ${desc}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+      setTimeout(() => {
+        window.print();
+        printArea.style.display = 'none';
+      }, 200);
+    }
+
+    /* =========================================================================
+     * 8. 시나리오 데이터 (1부: 1876~1894 / 2부: 1895~1910 완전 통합)
+     * ========================================================================= */
+    function keyFromCodes(codes) {
+      return String.fromCharCode(...codes);
+    }
+
+    function makeHashes(codeArrays) {
+      return codeArrays.map(arr => hashAnswer(keyFromCodes(arr)));
+    }
+
+    const SCENARIO_DATA = {
+      /* ==================== 1부: 개혁을 바란 사람들 (1876~1894) ==================== */
+      part1: {
+        prologue: [
+          {
+            bg: 'bg_museum_2026',
+            char: null,
+            speaker: '2026년 가을 · 우정총국 전시실',
+            text: '2026년 가을, 우정총국 전시실. "만지지 마시오" 표지판 옆에서 낡은 우편가방이 희미하게 빛난다. 누군가의 손끝이 가방에 닿는 순간, 눈앞이 하얘진다.'
+          },
+          {
+            bg: 'bg_storage_1895',
+            char: 'bokdong_1895_worry',
+            speaker: '우체부 복동 (1895년 6월 · 20세)',
+            text: '눈을 뜨니 먼지 냄새 나는 창고. 제복을 입은 청년이 깜짝 놀란다.\n복동: "어이쿠, 사람이 있었네! 나는 복동이오. 작년(1894년)에 농민군 봉기와 큰 개혁이 지나간 뒤, 오늘 드디어 한성 우체사가 문을 열었소(1895년 6월). 내 우체부 첫날이라오."'
+          },
+          {
+            bg: 'bg_storage_1895',
+            char: 'bokdong_1895_smile',
+            speaker: '우체부 복동',
+            text: '복동: "창고를 치우다 이 가방을 찾았소. 1884년 우정총국 시절에 남겨진 것인데, 안에 주인을 못 찾은 편지가 넷이나 들었다오. 나 혼자서는 못 하겠네. 같이 배달해 주시겠소?"'
+          },
+          {
+            bg: 'bg_timeslip',
+            char: null,
+            speaker: '배달 임무 및 교실 규칙',
+            text: '미션: 편지 4통을 모두 배달하고 도장 4개를 모아라. 가방은 마지막 배달이 끝날 때 너희를 돌려보낼 것이다.\n• 규칙 1: 가짝(기록관·지도관)은 편지 ①②, 나짝(암호관·수사관)은 편지 ③④ 담당\n• 규칙 2: 방향 자물쇠(1500iD)는 열기 전에 고리를 두 번 꼭 눌러 초기화\n• 규칙 3: 봉투를 찢으면 우편법 위반, 힌트 우표 2장 몰수'
+          }
+        ],
+        gate: {
+          clue: '가방 이름표: "이 가방의 주인은 급진 개화파가 정변을 일으킨 해에 사라졌다." (『역사②』 156쪽)',
+          answerHashes: makeHashes([[49, 56, 56, 52]]),
+          wrongFeedback: '교과서 156쪽에서 급진 개화파가 정변을 일으킨 해를 찾으시오.',
+          hint1: '교과서 156쪽 본문 둘째 단락에서 갑신정변이 일어난 연도를 확인하시오.',
+          successText: '1884년 갑신정변이 일어난 해, 우정총국에서 사라진 가방의 잠금이 풀렸소! 이제 네 통의 편지를 가짝과 나짝이 나누어 배달하시오.'
+        },
+        letters: {
+          l1: {
+            id: 'l1',
+            num: '①',
+            title: '편지 ① 개항 (1876~1883)',
+            sender: '부산 객주 김 아무개',
+            pairLabel: '가짝 담당 (기록관·지도관)',
+            bg: 'bg_p1_l1',
+            portrait: 'p1_s1',
+            body: '한성 계신 아우에게.\n강화도에서 조약을 맺은 뒤로 부산(1876)이 먼저 열리고, 원산(1880), 인천(1883)이 차례로 열렸다네. 항구에 일본 배가 늘었는데 세금 한 푼 매기지 못한다니 속이 타네.\n옆집 아낙의 남편은 일본인과 다투다 크게 다쳤는데, 관아에서는 우리 법으로 일본인을 벌할 수 없다고만 하네. 쌀은 자꾸 바다 건너로 빠져나가 쌀값이 오르니 백성들 한숨이 깊다네.\n우리 법으로 우리 사람을 지킬 날이 오겠지. — 부산 객주 김 아무개 올림',
+            confirmCodes: [[48169, 44257, 47161]],
+            steps: [
+              {
+                type: 'matching',
+                mode: 'web',
+                title: '1단계 [웹 매칭] 세 사람의 고민 짝짓기',
+                sourceQuote: '㉠ 강화도 조약 제10조: 일본인과 조선인이 개항장에서 죄를 범하였을 경우, 각각 자국의 법률에 근거하여 심문하고 판결한다.\n㉡ 조·일 무역 규칙 제6칙: 조선국 항구에 머무르는 일본인은 쌀과 잡곡을 수출·수입할 수 있다.\n㉢ 조·일 무역 규칙 제7칙: 일본 정부에 소속된 모든 선박은 항세(항구세)를 납부하지 않는다.',
+                items: [
+                  { text: '"개항은 했지만, 개항장에 들어오는 일본국 정부 소속의 선박에 세금을 매기지 못하니 고민이야."', answer: '㉢' },
+                  { text: '"남편이 어떤 일본인과 싸우다가 크게 다쳤는데 관아에 신고해도 소용이 없어. 우리 법으로는 일본인을 처벌 못 한대."', answer: '㉠' },
+                  { text: '"일본으로 쌀과 잡곡이 많이 유출되서 곡물 가격이 너무 올랐어. 그래서 우리 같은 농민은 먹을 게 없어."', answer: '㉡' }
+                ],
+                choices: ['㉠', '㉡', '㉢'],
+                wrongFeedback: '조항 문장의 핵심 낱말(자국의 법률, 쌀과 잡곡, 항세)을 고민 속 말과 견주어 보시오.',
+                hint1: '사료 카드 ①-A·B의 밑줄 친 ㉠㉡㉢ 문장을 세 사람의 말과 비교해 보시오.',
+                hint2: '쌀 이야기는 "쌀과 잡곡을 수출·수입" 조항(㉡), 다친 남편 이야기는 "자국의 법률" 조항(㉠)이오.',
+                successText: '맞소! 제10조로 일본인은 개항장에서 죄를 지어도 일본 법으로 재판받았소(치외 법권). 제6칙은 쌀과 잡곡이 마구 빠져나가게 했고, 제7칙은 일본 정부 선박의 항세를 면제했지.\n+ 복동의 지령: "강화도(조약 체결지)에서 출발해 조약으로 열린 세 개항장(부산 → 원산 → 인천) 차례대로 배를 몰게."'
+              },
+              {
+                type: 'physical_dir',
+                mode: 'physical',
+                title: '2단계 [실물 · 1500iD 방향 자물쇠] 격자 지도와 방향 자물쇠',
+                tasks: [
+                  '① 배달 일지 ①의 격자 지도에서 강화도 → 부산 → 원산 → 인천으로 선을 긋는다.',
+                  '② 규칙: 가로 먼저 움직이고, 방향이 꺾일 때마다 화살표를 한 번만 적는다.',
+                  '③ 고리를 두 번 눌러 초기화한 뒤, 적은 순서대로 등기 봉투 ①의 방향 자물쇠를 연다.'
+                ],
+                completeBtn: '방향 자물쇠를 열었소',
+                hint1: '편지에 적힌 개항 순서(강화도→부산→원산→인천)대로, 방향이 바뀔 때만 적으시오.',
+                hint2: '강화도에서 부산까지는 → 먼저, 그다음 ↓. 전체는 여섯 번(→↓←↑←↓) 밀면 되오.',
+                successText: '등기 봉투 ①이 열렸소. 안에 든 사료 카드 ①-C를 읽어 보시오.'
+              },
+              {
+                type: 'text_input',
+                mode: 'web',
+                title: '3단계 [웹 입력] 배달 확인 암호',
+                question: '봉투 속 사료 카드 ①-C를 읽고 답하시오. 쌀 수출을 막으려고 일부 지방관이 내린 명령은?',
+                placeholder: '세 글자 입력',
+                answerHashes: makeHashes([[48169, 44257, 47161]]),
+                wrongFeedback: '사료 카드 ①-C와 교과서 166쪽 마지막 단락에서 지방관이 쌀 유출을 막기 위해 내린 세 글자 명령을 찾으시오.',
+                hint1: '사료 카드 ①-C, 교과서 166쪽 마지막 단락을 읽으시오.',
+                hint2: '"방"으로 시작하는 세 글자요.',
+                successText: '그렇소. 국내 쌀값이 폭등하자 일부 지방관이 방곡령을 내렸지만 큰 성과를 거두지는 못했소. (교과서 166쪽)'
+              }
+            ]
+          },
+          l2: {
+            id: 'l2',
+            num: '②',
+            title: '편지 ② 갑신정변 (1884)',
+            sender: '우정총국 견습 직원 윤생',
+            pairLabel: '가짝 담당 (나짝 암호관의 UV 펜 필요)',
+            bg: 'bg_p1_l2',
+            portrait: 'p1_s2',
+            body: '어머님께.\n우정총국 개국 축하연이 열린 밤, 바깥이 갑자기 소란해졌습니다. 개화파 어른들이 새 정강을 발표했다는 소문을 들었습니다. 문벌을 없애고 능력에 따라 관리를 뽑으며, 대신들이 회의하여 정치를 한다는 내용이랍니다.\n그러나 청군이 들어오며 금세 끝났다 하니 마음이 무겁습니다. 그 정강이 바란 정치를 잊지 않으려고 암호로 적어 둡니다.\nㅋ ㄷ ㅈ ㅓ ㅛ ㅁ\n(맨 아래 빈칸에는 아무것도 없는 것처럼 보이시겠지요.) — 윤생 올림',
+            confirmCodes: [[50, 49, 51]],
+            steps: [
+              {
+                type: 'text_input',
+                mode: 'physical',
+                title: '1단계 [실물 UV → 웹 입력] UV 숨은 글 찾기',
+                question: '암호관이 UV 펜 불빛을 편지 ② 맨 아래 빈칸에 비춰 보시오. 숨은 글("열쇠 = 정변이 실패하기까지 걸린 날수")이 가리키는 숫자는?',
+                placeholder: '숫자 입력 (예: 0)',
+                answerHashes: makeHashes([[51]]),
+                wrongFeedback: '교과서 156쪽에서 갑신정변이 청의 개입으로 며칠 만에 실패했는지 숫자만 입력하시오.',
+                hint1: '나짝 암호관의 UV 펜 불빛을 편지 ② 맨 아래 빈칸에 비추시오.',
+                hint2: '교과서 156쪽: 정변은 청의 개입으로 며칠 만에 실패했소?',
+                successText: '3일. 갑신정변은 청의 개입으로 3일 만에 실패했소(교과서 156쪽). 이 숫자 3이 원판의 열쇠라오.'
+              },
+              {
+                type: 'cipher_disk',
+                mode: 'web',
+                title: '2단계 [웹 암호 원판] 암호문 해독 (열쇠: 3칸)',
+                cipherChars: ['ㅋ', 'ㄷ', 'ㅈ', 'ㅓ', 'ㅛ', 'ㅁ'],
+                keySchedule: [3, 3, 3, 3, 3, 3],
+                question: '안쪽 원판을 3칸 돌린 뒤 암호문 [ㅋ ㄷ ㅈ ㅓ ㅛ ㅁ]을 해독한 두 글자 낱말을 입력하시오.',
+                placeholder: '해독한 두 글자 입력',
+                answerHashes: makeHashes([[51077, 54732]]),
+                wrongFeedback: '바깥 ㅋ, ㄷ, ㅈ, ㅓ, ㅛ, ㅁ 바로 안쪽에 놓인 자모를 차례대로 조합해 두 글자 낱말을 만드시오.',
+                hint1: '안쪽 원판을 시계 방향(+1 버튼)으로 3칸 돌리고 슬롯을 하나씩 눌러 보시오.',
+                hint2: '첫 세 자모는 ㅇ, ㅣ, ㅂ 이오.',
+                successText: '입헌! 정변은 실패했지만, 정변 세력이 강조한 민권과 입헌 정치의 개념은 이후 일어난 개혁에 많은 영향을 주었소. (교과서 156쪽)'
+              },
+              {
+                type: 'dial_3',
+                mode: 'web',
+                title: '3단계 [웹 3자리 다이얼] 정강 조항 자물쇠',
+                sourceQuote: '제2조 문벌을 폐지하여 인민 평등권을 세우고, 능력에 따라 관리를 임명한다.\n제13조 대신과 참찬은 매일 궁궐 내의 의정부에서 회의하고 국왕에게 아뢰어 정령(정치적 명령)을 집행한다. — 김옥균, 『갑신일록』 · 교과서 156쪽',
+                question: '"평등권"을 말한 조 번호와 "회의하고 정령을 집행"을 말한 조 번호를 이어 쓰면?',
+                answerHashes: makeHashes([[50, 49, 51]]),
+                wrongFeedback: '사료의 제○조 번호 두 개를 순서대로 이어 세 자리 숫자를 만드시오.',
+                hint1: '사료의 조 번호를 보시오.',
+                hint2: '"평등권"은 제2조. 그다음 조 번호(13)를 이어 쓰시오.',
+                successText: '제2조와 제13조, 213이오. 급진 개화파는 문벌 폐지와 인민 평등권, 대신들의 회의를 거친 정치를 내세웠소.'
+              }
+            ]
+          },
+          l3: {
+            id: 'l3',
+            num: '③',
+            title: '편지 ③ 동학 농민 운동 (1894)',
+            sender: '농민의 딸 순덕',
+            pairLabel: '나짝 담당 (가짝 기록관의 교과서 필요)',
+            bg: 'bg_p1_l3',
+            portrait: 'p1_s3',
+            body: '오라버니에게.\n아버지가 농민군을 따라 나서신 지 여러 달이 되었어요. 전주성 이야기, 화약을 맺었다는 이야기, 집강소 이야기, 다시 일어났다는 이야기, 불길한 소식까지 들려왔는데 제 머릿속에서는 모두 뒤섞여 버렸어요. 사건 카드를 차례대로 놓아 주세요.\n아버지가 고을 게시판에 붙이셨다는 방의 마지막 줄은 우리 집의 가장 큰 바람이에요. — 순덕 올림',
+            confirmCodes: [[53664, 51648]],
+            steps: [
+              {
+                type: 'physical_eng',
+                mode: 'physical',
+                title: '1단계 [실물 · 사건 카드 5장 + UV + 5글자 영어 자물쇠]',
+                tasks: [
+                  '① 봉투 속 사건 카드 5장을 교과서 157쪽 본문 순서대로 놓는다. (전주성 점령 → 전주 화약 → 집강소 설치 → 다시 봉기 → 일본군에 패하고 지도자 체포)',
+                  '② 암호관이 카드 뒷면에 UV 불빛을 비춰 한 글자씩 읽는다.',
+                  '③ 수사관이 다섯 글자로 등기 봉투 ③의 5글자 영어 자물쇠를 연다.'
+                ],
+                completeBtn: '영어 자물쇠를 열었소',
+                hint1: '교과서 157쪽 본문 둘째 단락에 일어난 순서가 있소.',
+                hint2: '첫 카드는 "전주성 점령", 마지막은 "일본군에 패하고 지도자 체포"요. UV 글자는 영어 단어 하나가 되오.',
+                successText: '등기 봉투 ③이 열렸소. EQUAL, "평등"이라는 뜻이오. 봉투 속 순덕의 쪽지를 읽으시오.'
+              },
+              {
+                type: 'physical_board',
+                mode: 'physical',
+                title: '2단계 [실물 · 코르크 보드] 방 읽기',
+                tasks: [
+                  '① 순덕의 쪽지: "고을 게시판에 붙은 방의 맨 끝 줄이 열쇠라오."',
+                  '② 수사관이 교실 코르크 보드의 방(폐정 개혁안)을 읽고 온다. 방은 떼지 않는다.',
+                  '③ 배달 일지 ③의 빈칸 3개(탐관오리 / 노비 / 토지)를 채운다.'
+                ],
+                completeBtn: '빈칸을 다 채웠소',
+                hint1: '기록관의 교과서 157쪽 폐정 개혁안과 같은 내용이오.',
+                hint2: '빈칸 첫째는 "탐관오리"요.',
+                successText: '배달 일지 ③의 빈칸을 모두 채웠구려! 이제 마지막 줄의 핵심 낱말을 웹에 입력하시오.'
+              },
+              {
+                type: 'text_input',
+                mode: 'web',
+                title: '3단계 [웹 입력] 배달 확인 암호',
+                question: '방의 맨 끝 줄을 채우시오. "(    )는 균등히 나누어 경작할 것."',
+                placeholder: '두 글자 입력',
+                answerHashes: makeHashes([[53664, 51648]]),
+                wrongFeedback: '폐정 개혁안 마지막 줄에서 농민들이 균등히 나누어 경작하자고 요구한 두 글자 낱말을 입력하시오.',
+                hint1: '방의 맨 끝 줄을 보시오.',
+                hint2: '두 글자요. 농민이 농사짓는 바로 그것.',
+                successText: '토지는 균등히 나누어 경작할 것. 이 요구는 뒤이은 갑오개혁에서는 받아들여지지 않았소. (교과서 157쪽)'
+              }
+            ]
+          },
+          l4: {
+            id: 'l4',
+            num: '④',
+            title: '편지 ④ 갑오개혁 (1894)',
+            sender: '개혁 관청 하급 관리 박 서기',
+            pairLabel: '나짝 담당 (암호관 주도)',
+            bg: 'bg_p1_l4',
+            portrait: 'p1_s4',
+            body: '벗에게.\n요즘 관청은 개혁 일로 밤낮이 없네. 왕실 일과 나랏일을 나누고, 노비제를 없애고, 과거제도 폐지한다네.\n그런데 내가 정리하던 개혁 목록에 누가 엉터리 카드를 두 장 섞어 놓았어. 가짜를 골라내면 내 비밀 기록을 보여 주겠네.\n다만 이 개혁이 일본의 간섭 속에 추진된다는 것은 마음에 걸리는구먼. — 박 서기',
+            confirmCodes: [[54924, 51032]],
+            steps: [
+              {
+                type: 'select_n',
+                mode: 'web',
+                title: '1단계 [웹 고르기 2장] 가짜 개혁 카드 찾기',
+                question: '갑오개혁의 주요 내용에 해당하지 않는 가짜 카드 2장을 고르시오.',
+                pickCount: 2,
+                options: [
+                  { text: '왕실 사무와 국정 업무를 철저히 구분', isTarget: false },
+                  { text: '왕실과 국가의 재정을 분리', isTarget: false },
+                  { text: '경찰 제도 마련', isTarget: false },
+                  { text: '노비제 폐지', isTarget: false },
+                  { text: '토지를 균등히 나누어 경작', isTarget: true },
+                  { text: '과거제 폐지', isTarget: false },
+                  { text: '과부 재가 허용', isTarget: false },
+                  { text: '의회 설립', isTarget: true }
+                ],
+                wrongFeedback: '교과서 157쪽 "갑오개혁의 주요 내용" 표에 없는 두 가지를 찾으시오.',
+                hint1: '사료 카드 ④-A(교과서 157쪽 표)에 없는 두 장을 고르시오.',
+                hint2: '하나는 동학 농민군이 요구했지만 빠진 것, 하나는 몇 년 뒤 독립 협회가 주장한 것이오.',
+                successText: '잘 골라냈소! 토지 균등 분배는 동학 농민군의 요구였고, 의회 설립은 몇 해 뒤 독립 협회가 주장한 것이오.\n+ 박 서기의 비밀 기록: ㅇㅇㅋㅊㅠㅊ / 열쇠 = 이 개혁이 시작된 해(1894), 네 자리를 차례로.'
+              },
+              {
+                type: 'cipher_disk',
+                mode: 'web',
+                title: '2단계 [웹 암호 원판] 가변 열쇠(1·8·9·4) 해독',
+                cipherChars: ['ㅇ', 'ㅇ', 'ㅋ', 'ㅊ', 'ㅠ', 'ㅊ'],
+                keySchedule: [1, 8, 9, 4, 1, 8],
+                question: '글자마다 1·8·9·4·1·8칸씩 돌려 암호문 [ㅇ ㅇ ㅋ ㅊ ㅠ ㅊ]을 해독한 두 글자 낱말을 입력하시오.',
+                placeholder: '해독한 두 글자 입력',
+                answerHashes: makeHashes([[49888, 48516]]),
+                wrongFeedback: '상단 슬롯(1번~6번)을 눌러 각 글자마다 지정된 칸수만큼 원판을 돌린 뒤 안쪽 자모를 읽으시오.',
+                hint1: '열쇠는 1894. 첫 글자 1칸, 둘째 8칸, 셋째 9칸, 넷째 4칸, 다섯째는 다시 1칸, 여섯째는 8칸.',
+                hint2: '첫 두 자모는 ㅅ, ㅣ 이오.',
+                successText: '신분! 갑오개혁으로 신분제가 폐지되어 법적으로 평등 사회가 이루어졌소. (교과서 157쪽)'
+              },
+              {
+                type: 'text_input',
+                mode: 'web',
+                title: '3단계 [웹 입력] 배달 확인 암호',
+                sourceQuote: '전봉준: "나랏일을 한 사람에게 맡기는 것은 위험합니다. 몇 사람이 함께 회의하여 합의제로 정치를 해야 합니다."\n김홍집: "각 고을의 백성들 중 행정을 잘 아는 사람을 향회원으로 선발하여 고을 관청에서 회의를 하게 해야 합니다. 법을 만들 때도 고을 차원에서 결정할 수 있는 일이라면, 고을 관청에서 회의를 열어 법에 대해 논의한 후 시행해야 합니다." — 교과서 157쪽 탐구',
+                question: '두 사람이 똑같이 쓴 핵심 낱말(두 글자)은?',
+                placeholder: '두 글자 입력',
+                answerHashes: makeHashes([[54924, 51032]]),
+                wrongFeedback: '전봉준과 김홍집의 말풍선에 공통으로 반복되는 두 글자 정치 용어를 찾으시오.',
+                hint1: '두 말풍선에 모두 들어 있는 낱말을 찾으시오.',
+                hint2: '두 글자, "○의".',
+                successText: '회의. 두 사람 모두 여러 사람이 회의를 통해 결정하는 정치를 바랐소.'
+              }
+            ]
+          }
+        },
+        meta: {
+          title: '1부 레이어드 스탬프 · 엽서 속 기록 상자 번호 해독',
+          guide: '도장 4개를 눌러 올바른 정답 방향(▲)으로 회전시키면 엽서 속 4자리 숫자가 선명해집니다.',
+          stamps: [
+            { id: 'l1', label: '도장 ①', q: '강화도 조약 제10조(㉠) 때문에 생긴 문제는?', choices: ['방곡령', '집강소', '치외 법권', '태양력'], targetRot: 2 },
+            { id: 'l2', label: '도장 ②', q: '갑신정변을 일으킨 세력은?', choices: ['온건 개화파', '급진 개화파', '동학 농민군', '독립 협회'], targetRot: 3 },
+            { id: 'l3', label: '도장 ③', q: '농민군이 다시 봉기한 까닭은?', choices: ['과거제 부활', '개항장 확대', '독립문 건립', '일본군 축출'], targetRot: 1 },
+            { id: 'l4', label: '도장 ④', q: '갑오개혁의 한계는?', choices: ['신분제 유지', '태양력 거부', '일본의 내정 간섭', '과거제 강화'], targetRot: 2 }
+          ],
+          completeMsg: '번호가 선명해졌소! 배달 일지 메타 칸에 도장 답 4개와 번호를 적고, 나무상자(기록 상자)의 숫자 자물쇠를 여시오.'
+        },
+        final: {
+          instruction: '모둠의 나무상자를 여시오. 상자 속 쪽지에 엔딩 암호가 있소.',
+          endingHashes: makeHashes([[54217, 46321]]),
+          wrongFeedback: '나무상자 속 쪽지에 적힌 두 글자 엔딩 암호를 확인하시오.'
+        },
+        ending: [
+          {
+            bg: 'bg_storage_1895',
+            prop: 'record_box_open',
+            char: 'bokdong_1895_smile',
+            title: '1부 배달 완료 · 우체부 복동의 감사',
+            text: '복동: "개항장의 상인도, 우정총국의 청년도, 전라도의 순덕이도, 개혁 관청의 관리도 모두 더 공평한 나라를 바랐구려. 고맙소. 그런데 어째 가방이 아직 무겁다오. 바닥에 아직 열리지 않는 주머니가 하나 더 있군. 언젠가 이 가방을 다시 열 날이 오겠지. 그때까지 그 우표를 갖고 있게."'
+          },
+          {
+            bg: 'bg_storage_1895',
+            prop: null,
+            char: null,
+            title: '📜 1부 역사 흐름 핵심 정리 (1876~1894)',
+            text: '1876 불평등 개항 → 1884 갑신정변(문벌 폐지) → 1894 동학 농민 운동(폐정 개혁) → 1894 갑오개혁(신분제 폐지)\n\n: 위로부터의 개혁과 아래로부터의 요구가 만나 "평등한 근대 사회"의 문을 열었으나, 외세의 간섭이라는 과제를 남겼습니다.'
+          },
+          {
+            type: 'grade',
+            title: '🏅 1부 모둠 배달 등급 및 기록'
+          },
+          {
+            type: 'reply',
+            bg: 'bg_museum_2026',
+            title: '2026년 귀환 · 복동에게 보내는 답장',
+            prompt: '배달 일지 맨 아래에 "복동에게 보내는 답장"을 세 줄로 쓰세요. 네 사람이 공통으로 바란 것을 담아 보세요.\n※ 상자 속 "1895" 우표 카드는 2부의 열쇠입니다. 배달 일지에 붙여 보관하세요.'
+          }
+        ]
+      },
+
+      /* ==================== 2부: 나라를 지키려 한 사람들 (1895~1910) ==================== */
+      part2: {
+        prologue: [
+          {
+            bg: 'bg_storage_1910',
+            char: 'bokdong_1910_worry',
+            speaker: '우체부 복동 (1910년 8월 · 35세)',
+            text: '가방이 다시 빛난다. 눈을 뜨니 같은 창고, 하지만 더 낡았다.\n복동(35세): "자네들… 정말 다시 왔구려! 벌써 열다섯 해가 지났소. 지금은 1910년 8월. 1905년 봄에 우리 우편·통신 업무가 일본에 넘어갔고, 그해 가을에는 외교권마저 빼앗겼네. 요즘은 \'합방\'이란 소문이 파다하오."'
+          },
+          {
+            bg: 'bg_storage_1910',
+            char: 'bokdong_1910_smile',
+            speaker: '우체부 복동',
+            text: '복동: "그동안 나라를 지키려는 사람들의 편지를 일본 관리 눈을 피해 여기 숨겨 두었네. 자물쇠 번호는 자네들이 지난번에 받은 그 우표에 있지."'
+          },
+          {
+            bg: 'bg_timeslip',
+            char: null,
+            speaker: '2부 배달 임무 안내',
+            text: '미션: 편지 4통을 배달하고, 도장 4개를 겹쳐 복동이 기록을 숨긴 곳을 찾아라.\n• 규칙: 가짝(기록관·지도관)은 편지 ①②, 나짝(암호관·수사관)은 편지 ③④ 담당 (1부와 동일)'
+          }
+        ],
+        gate: {
+          clue: '단서: "1부 엔딩에서 받은 우표 카드의 번호"',
+          answerHashes: makeHashes([[49, 56, 57, 53]]),
+          wrongFeedback: '1부 상자에서 받은 우표 카드의 네 자리 숫자(복동이 한성 우체사 우체부가 된 해)를 맞추시오.',
+          hint1: '복동이 한성 우체사 우체부가 된 해(1895)를 입력하시오.',
+          successText: '1895년 우표 번호로 숨겨진 주머니가 열렸소! 나라를 지키려 했던 네 통의 기록을 배달하시오.'
+        },
+        letters: {
+          l1: {
+            id: 'l1',
+            num: '①',
+            title: '편지 ① 독립 협회 (1896~1898)',
+            sender: '인력거꾼 막쇠',
+            pairLabel: '가짝 담당 (나짝 암호관의 UV 펜 필요)',
+            bg: 'bg_p2_l1',
+            portrait: 'p2_s1',
+            body: '복동 형님께.\n우리 같은 인력거꾼도 종로 만민 공동회에서 나랏일을 들었다오. 그간 일어난 일을 카드에 적어 두었는데 다 뒤섞여 버렸소. 카드 뒷면에는 안 보이는 글자를 하나씩 적어 두었지. 차례대로 읽으면 우리가 그때 외친 말이 될 거요. — 막쇠',
+            confirmCodes: [[50689, 51008, 47928]],
+            steps: [
+              {
+                type: 'order_seq',
+                mode: 'web',
+                title: '1단계 [웹 순서 맞추기] 사건 순서 배열 (교과서 158쪽)',
+                question: '아래 다섯 사건을 일어난 순서대로 차례로 누르시오.',
+                cards: [
+                  '독립 협회 해산 (1898)',
+                  '아관 파천 (1896, 러시아 공사관 이동)',
+                  '대한 제국 선포 (1897)',
+                  '을미사변 (1895)',
+                  '독립 협회 창립 (1896, 이권 침탈 비판)'
+                ],
+                correctOrder: [
+                  '을미사변 (1895)',
+                  '아관 파천 (1896, 러시아 공사관 이동)',
+                  '독립 협회 창립 (1896, 이권 침탈 비판)',
+                  '대한 제국 선포 (1897)',
+                  '독립 협회 해산 (1898)'
+                ],
+                wrongFeedback: '교과서 158쪽을 보고 사건의 인과관계와 연도를 다시 확인하시오.',
+                hint1: '교과서 158쪽 본문 첫 단락과 셋째 단락을 읽으시오.',
+                hint2: '1896년 두 사건 중, 고종이 러시아 공사관으로 옮긴(아관 파천) 뒤에 열강의 이권 침탈을 비판하며 독립 협회가 창립되었소.',
+                successText: '맞소. 아관 파천 이후 열강의 이권 침탈이 심해지자 독립 협회가 창립되었소. 이제 봉투 속 실물 사건 카드 5장을 이 순서대로 놓고 뒷면에 UV를 비추시오.'
+              },
+              {
+                type: 'physical_eng',
+                mode: 'physical',
+                title: '2단계 [실물 · 사건 카드 5장 + UV + 5글자 영어 자물쇠]',
+                tasks: [
+                  '① 실물 사건 카드 5장을 웹에서 맞춘 순서대로 놓는다.',
+                  '② 암호관이 뒷면에 UV를 비춰 글자를 읽는다.',
+                  '③ 다섯 글자로 등기 봉투 ①의 5글자 영어 자물쇠를 연다.'
+                ],
+                completeBtn: '영어 자물쇠를 열었소',
+                hint1: '초기화 없이 바퀴를 돌리면 되오. 순서가 틀리면 단어가 되지 않소.',
+                hint2: '첫 글자는 R이오.',
+                successText: 'RIGHT, "권리(민권)"요. 독립 협회는 자유 민권과 자주 국권을 주장했소. 봉투 속 사료 카드 ①-B를 보시오.'
+              },
+              {
+                type: 'text_input',
+                mode: 'web',
+                title: '3단계 [웹 입력] 배달 확인 암호',
+                question: '사료 카드 ①-B(독립문 사진과 설명, 교과서 158쪽)를 보고, 독립문 앞에 주춧돌만 남은 청의 사신을 맞이하던 문의 이름은?',
+                placeholder: '세 글자 입력',
+                answerHashes: makeHashes([[50689, 51008, 47928]]),
+                wrongFeedback: '독립문 사진 설명에서 독립문이 세워지기 전 청의 사신을 맞이하던 세 글자 문 이름을 찾으시오.',
+                hint1: '사진 설명 첫 문장을 읽으시오.',
+                hint2: '"영"으로 시작하는 세 글자요.',
+                successText: '영은문. 독립문은 서재필의 건의로 영은문이 헐린 부근에 자주독립의 상징으로 세워졌소. (교과서 158쪽)'
+              }
+            ]
+          },
+          l2: {
+            id: 'l2',
+            num: '②',
+            title: '편지 ② 대한 제국 (1897~1899)',
+            sender: '관민 공동회 서기 홍생원',
+            pairLabel: '가짝 담당 (지도관 주도)',
+            bg: 'bg_p2_l2',
+            portrait: 'p2_s2',
+            body: '복동 군에게.\n관리와 백성이 한자리에 모인 관민 공동회에서 나는 기록을 맡았네. 그런데 얼마 뒤 나라에서 전혀 다른 법이 반포되었지. 두 글을 나란히 놓고 보면 무엇이 달랐는지 알 걸세. 아관 파천 뒤 임금님이 경운궁으로 돌아오신 길도 적어 두었네. — 홍생원',
+            confirmCodes: [[45824, 54620, 44397, 32, 44397, 51228]],
+            steps: [
+              {
+                type: 'bucket_sort',
+                mode: 'web',
+                title: '1단계 [웹 바구니 분류] 황제권을 제한한다 vs 강화한다',
+                question: '조항 카드를 누른 뒤 알맞은 바구니를 눌러 분류하시오. (교과서 158쪽 탐구)',
+                buckets: [
+                  { id: 'limit', label: '⚖️ 황제권을 제한한다' },
+                  { id: 'power', label: '👑 황제권을 강화한다' }
+                ],
+                cards: [
+                  { text: '제2조: 외국과 맺는 이권에 관한 계약과 조약은 해당 부처의 대신과 중추원 의장이 함께 서명하여 시행할 것.', bucket: 'limit', source: '「헌의 6조」 제2조' },
+                  { text: '제3조: 재정은 탁지부에서 전담하고, 예산과 결산을 국민에게 공포할 것.', bucket: 'limit', source: '「헌의 6조」 제3조' },
+                  { text: '제5조: 칙임관(최고층 관료층)을 임명할 때는 의정부에 자문하여 과반수를 얻은 자를 임명할 것.', bucket: 'limit', source: '「헌의 6조」 제5조' },
+                  { text: '제2조: 대한국의 정치는 만세불변의 전제 정치이다.', bucket: 'power', source: '「대한국 국제」 제2조' },
+                  { text: '제3조: 대한국 대황제는 무한한 군주권을 누린다.', bucket: 'power', source: '「대한국 국제」 제3조' },
+                  { text: '제8조: 대한국 대황제는 문무 관리의 임명과 파면의 권리를 가진다.', bucket: 'power', source: '「대한국 국제」 제8조' },
+                  { text: '제9조: 대한국 대황제는 각 조약 당사국에 사신을 파견하고 선전, 강화 및 제반 조약을 체결한다.', bucket: 'power', source: '「대한국 국제」 제9조' }
+                ],
+                wrongFeedback: '조항 속 "중추원 의장과 함께 서명", "의정부에 자문"처럼 여러 사람이 견제하는 조항과 "무한한 군주권·전제 정치" 조항을 구분하시오.',
+                hint1: '「헌의 6조」는 독립 협회, 「대한국 국제」는 대한 제국이 만들었소.',
+                hint2: '"해당 부처의 대신과 함께", "의정부에 자문"처럼 여러 사람이 정하는 조항이 "제한"이오.',
+                successText: '독립 협회는 황제 존재를 부정한 것이 아니라, 법과 의회(중추원)를 통해 황제의 독단적 권한을 제한하는 입헌 군주제를 지향했고, 대한 제국은 황제의 권한이 절대적임을 밝혔소.\n+ 복동의 지령: "아관 파천에서 환궁까지, 임금님이 지나신 길을 따라가게. 경복궁 → 러시아 공사관 → 경운궁."'
+              },
+              {
+                type: 'physical_dir',
+                mode: 'physical',
+                title: '2단계 [실물 · 1500iD 방향 자물쇠] 한성 격자 지도',
+                tasks: [
+                  '① 배달 일지 ②의 한성 격자 지도에서 경복궁 → 러시아 공사관 → 경운궁으로 선을 긋는다.',
+                  '② 규칙: 가로 먼저, 꺾일 때마다 한 번만 적는다.',
+                  '③ 고리를 두 번 눌러 초기화하고 등기 봉투 ②의 방향 자물쇠를 연다.'
+                ],
+                completeBtn: '방향 자물쇠를 열었소',
+                hint1: '러시아 공사관은 경복궁의 남서쪽, 경운궁은 그 바로 남동쪽이오.',
+                hint2: '모두 네 번 밀면 되고, 첫 방향은 ← 이오 (←↓→↓).',
+                successText: '등기 봉투 ②가 열렸소. 사료 카드 ②-C를 읽으시오.'
+              },
+              {
+                type: 'text_input',
+                mode: 'web',
+                title: '3단계 [웹 입력] 배달 확인 암호',
+                question: '사료 카드 ②-C(교과서 158쪽 "독립 협회와 대한 제국이 갈등하다")를 읽고, 대한 제국의 모든 권한이 황제에게 있음을 밝힌 법의 이름은?',
+                placeholder: '법 이름 입력',
+                answerHashes: makeHashes([[45824, 54620, 44397, 32, 44397, 51228]]),
+                wrongFeedback: '교과서 158쪽 셋째 단락 마지막 문장에서 대한 제국이 반포한 법의 이름을 찾으시오.',
+                hint1: '단락 마지막 문장에 있소.',
+                hint2: '"대한국"으로 시작하는 법이오.',
+                successText: '「대한국 국제」(1899). 고종은 독립 협회를 강제로 해산하고(1898) 이 법을 반포했소.'
+              }
+            ]
+          },
+          l3: {
+            id: 'l3',
+            num: '③',
+            title: '편지 ③ 독도 (1900~1906)',
+            sender: '울릉도 어부의 아들 돌쇠',
+            pairLabel: '나짝 담당 (가짝 기록관의 교과서 필요)',
+            bg: 'bg_p2_l3',
+            portrait: 'p2_s3',
+            body: '복동 아저씨께.\n우리 섬에서 바라보이는 돌섬을 아버지는 "독섬"이라 부르셨소. 그런데 일본이 그 섬을 주인 없는 섬이라 한다네요. 우리 칙령 번호 뒤에 저들의 고시 번호를 붙이면 자물쇠가 열릴 거요. 누가 먼저였는지 기억하시오. — 돌쇠',
+            confirmCodes: [[49437, 46020]],
+            steps: [
+              {
+                type: 'anamorphic',
+                mode: 'web',
+                title: '1단계 [웹 아나모픽] 착시 글자 기울여 읽기',
+                question: '슬라이더로 "보는 각도"를 조절해 세로로 늘어난 글자를 읽고, 대한 제국 칙령 제41호(1900)에서 독도를 부른 이름을 입력하시오.',
+                placeholder: '한글 두 글자 입력',
+                answerHashes: makeHashes([[49437, 46020]]),
+                wrongFeedback: '슬라이더를 오른쪽 끝으로 밀어 압축된 글자를 읽으시오.',
+                hint1: '슬라이더를 오른쪽 끝까지 밀어 보시오.',
+                hint2: '돌 "석(石)"자가 들어간 두 글자요.',
+                successText: '석도. 칙령 제41호는 울릉도를 울도군으로 승격하고, 울릉 군수가 울릉도와 함께 석도(독도)를 관할하도록 했소. (교과서 161쪽)'
+              },
+              {
+                type: 'dial_4',
+                mode: 'web',
+                title: '2단계 [웹 4자리 다이얼] 칙령과 고시 번호',
+                question: '봉투 속 사료 카드 ③-A~D에서 「대한 제국 칙령」의 번호와 「시마네현 고시」의 번호를 찾아 이어 붙이시오.',
+                answerHashes: makeHashes([[52, 49, 52, 48]]),
+                wrongFeedback: '대한 제국 칙령(1900) 번호 두 자리와 시마네현 고시(1905) 번호 두 자리를 차례로 맞추시오.',
+                hint1: '카드 제목의 "제○○호"를 보시오.',
+                hint2: '칙령 번호는 41이오.',
+                successText: '칙령 제41호는 1900년, 시마네현 고시 제40호는 1905년. 일본은 독도를 주인 없는 땅이라 억지를 부리며 지방 관청 고시로 몰래 편입하려 했으나, 이미 대한 제국이 칙령 제41호로 관할하고 있었기에 국제법상 명백한 불법이자 원천 무효요. (교과서 159쪽)'
+              },
+              {
+                type: 'select_n',
+                mode: 'web',
+                title: '3단계 [웹 고르기 3개] 일본 주장 반박 기록 고르기',
+                sourceQuote: '일본 외무성의 주장 (교과서 160쪽): "한국이 예전부터 독도를 인식하였다는 역사적 근거는 없어. 그리고 일본 정부는 1905년에 독도를 시마네현에 편입했어!"',
+                question: '1905년 편입보다 앞서 독도가 우리 땅임을 보여 주는 기록 3개를 고르시오.',
+                pickCount: 3,
+                options: [
+                  { text: '1454년 『세종실록』 「지리지」', isTarget: true },
+                  { text: '1877년 「태정관 지령」', isTarget: true },
+                  { text: '1900년 「대한 제국 칙령 제41호」', isTarget: true },
+                  { text: '1946년 「연합국 최고 사령관 각서 제677호」', isTarget: false },
+                  { text: '1952년 「인접 해양의 주권에 대한 대통령 선언」', isTarget: false },
+                  { text: '2007년 독도에서 대통령 선거 부재자 투표', isTarget: false }
+                ],
+                wrongFeedback: '1905년보다 앞선 연도의 기록 3개만 고르시오.',
+                hint1: '연도를 보고 1905년보다 앞선 것만 고르시오.',
+                hint2: '1400년대 1개, 1800년대 1개, 1900년 1개요.',
+                successText: '모두 맞소. 나머지 세 기록도 사실이지만 1905년 이후의 일이라 이 주장에 대한 반박으로는 시기가 늦소. 배달 확인 암호는 "석도"요.'
+              }
+            ]
+          },
+          l4: {
+            id: 'l4',
+            num: '④',
+            title: '편지 ④ 국권 피탈 (1905~1910)',
+            sender: '우체부 복동 자신의 편지',
+            pairLabel: '나짝 담당 (암호관 주도)',
+            bg: 'bg_p2_l4',
+            portrait: 'bokdong_1910_worry',
+            body: '미래의 배달부들에게.\n1905년 봄, 우리 우편·통신 업무가 일본 손으로 넘어갔소. 그해 가을에는 외교권마저 빼앗겼지. 그래도 나라를 지키려는 사람들이 모였다네. 그들이 바란 것을 암호로 남기네.\nㅏ ㄴ ㄴ ㅋ ㅕ ㅏ\n일본 관리 눈을 피해 열쇠는 안 보이는 글로 적어 두었소. — 복동',
+            confirmCodes: [[49888, 48124, 54924]],
+            steps: [
+              {
+                type: 'text_input',
+                mode: 'physical',
+                title: '1단계 [실물 UV → 웹 입력] UV 숨은 글 찾기',
+                question: '편지 ④ 맨 아래 빈칸에 UV 불빛을 비추시오. 숨은 글("열쇠 = 우리가 우편·통신과 외교권을 빼앗긴 해")이 가리키는 연도는?',
+                placeholder: '네 자리 연도 입력',
+                answerHashes: makeHashes([[49, 57, 48, 53]]),
+                wrongFeedback: '편지 ④ 첫 문장에서 우편·통신 업무와 외교권을 빼앗긴 연도를 찾으시오.',
+                hint1: '편지 ④ 맨 아래 빈칸에 UV를 비추시오.',
+                hint2: '편지 본문 첫 문장에 그 해(1905)가 있소.',
+                successText: '1905년. 러·일 전쟁에서 이긴 일본은 을사늑약으로 대한 제국의 외교권을 빼앗고 국정 전반을 간섭했소. (교과서 159쪽)'
+              },
+              {
+                type: 'cipher_disk',
+                mode: 'web',
+                title: '2단계 [웹 암호 원판] 가변 열쇠(1·9·0·5) 해독',
+                cipherChars: ['ㅏ', 'ㄴ', 'ㄴ', 'ㅋ', 'ㅕ', 'ㅏ'],
+                keySchedule: [1, 9, 0, 5, 1, 9],
+                question: '글자마다 1·9·0·5·1·9칸씩 돌려 암호문 [ㅏ ㄴ ㄴ ㅋ ㅕ ㅏ]를 해독한 두 글자 낱말을 입력하시오.',
+                placeholder: '해독한 두 글자 입력',
+                answerHashes: makeHashes([[54732, 48277]]),
+                wrongFeedback: '상단 슬롯(1번~6번)을 눌러 각 글자마다 지정된 칸수만큼 원판을 돌린 뒤 안쪽 자모를 읽으시오.',
+                hint1: '셋째 글자는 0칸(그대로), 다섯째 글자는 다시 1칸, 여섯째 글자는 9칸이오.',
+                hint2: '첫 두 자모는 ㅎ, ㅓ 이오.',
+                successText: '헌법! 국권 침탈 속에서 입헌 군주제로 개혁해야 나라를 지킬 수 있다는 분위기가 형성되었소. (교과서 159쪽)'
+              },
+              {
+                type: 'text_input',
+                mode: 'web',
+                title: '3단계 [웹 입력] 배달 확인 암호',
+                question: '의회를 만들고 헌법에 따라 정치하자고 주장한 단체는 헌정 연구회. 그렇다면 국권 회복과 공화정 체제의 근대 국민 국가 수립을 추구한 단체는? (교과서 159쪽)',
+                placeholder: '세 글자 단체명 입력',
+                answerHashes: makeHashes([[49888, 48124, 54924]]),
+                wrongFeedback: '교과서 159쪽 둘째 단락에서 헌정 연구회 뒤에 나오는 세 글자 비밀 결사 단체를 찾으시오.',
+                hint1: '교과서 159쪽 둘째 단락을 보시오.',
+                hint2: '"신"으로 시작하는 세 글자요.',
+                successText: '신민회. 입헌 군주제를 넘어 국민이 주인이 되는 공화정을 지향했으나, 이러한 노력들은 일제의 국권 피탈(1910)로 인해 결실을 맺지 못하였소.'
+              }
+            ]
+          }
+        },
+        meta: {
+          title: '2부 레이어드 스탬프 · 한성 약도 위 복동의 배달길과 ✕ 찾기',
+          guide: '도장 4개를 눌러 올바른 정답 방향(▲)으로 회전시키면 한성 약도 위 복동의 배달길과 ✕ 위치가 선명해집니다.',
+          stamps: [
+            { id: 'l1', label: '도장 ①', q: '독립 협회가 열어 열강의 이권 침탈을 비판한 민중 집회는?', choices: ['집강소', '만민 공동회', '헌정 연구회', '우정총국'], targetRot: 3 },
+            { id: 'l2', label: '도장 ②', q: '「대한국 국제」가 밝힌 정치 체제는?', choices: ['입헌 정치', '공화정', '황제 전제 정치', '청에 의지'], targetRot: 2 },
+            { id: 'l3', label: '도장 ③', q: '일본의 1905년 독도 편입에 대한 교과서의 평가는?', choices: ['정당한 편입', '한국이 동의', '주인 없는 섬', '국제법상 불법'], targetRot: 1 },
+            { id: 'l4', label: '도장 ④', q: '1910년 일제가 대한 제국의 국권을 빼앗은 일은?', choices: ['을사늑약', '국권 피탈', '아관 파천', '갑오개혁'], targetRot: 3 }
+          ],
+          completeMsg: '복동의 배달길이 드러났소! 교실 코르크 보드의 한성 약도에서 같은 장소의 플랩 카드를 들춰 번호를 확인하고, 나무상자의 숫자 자물쇠를 여시오. 카드는 제자리에 덮어 두시오!'
+        },
+        final: {
+          instruction: '코르크 보드에서 찾은 번호로 모둠의 나무상자를 여시오. 상자 속 쪽지에 엔딩 암호가 있소.',
+          endingHashes: makeHashes([[48124, 44428]]),
+          wrongFeedback: '나무상자 속 쪽지에 적힌 두 글자 엔딩 암호를 확인하시오.'
+        },
+        ending: [
+          {
+            bg: 'bg_storage_1910',
+            prop: 'record_box_open',
+            char: 'bokdong_1910_smile',
+            title: '2부 배달 완료 · 복동의 마지막 편지',
+            text: '복동: "나라 이름이 사라진다 해도, 나라를 바꾸려던 사람들의 바람까지 사라지는 건 아닐세. 이 편지들을 자네들 시대까지 가져가 주게."'
+          },
+          {
+            bg: 'bg_ending_1910',
+            prop: null,
+            char: null,
+            title: '1910년 8월 29일 국권 피탈 → 2026년 귀환',
+            text: '1910년 8월 29일, 국권 피탈이 공포되었다. 가방이 다시 빛나고 2026년 우정총국 전시실로 돌아온다.\n\n[우표 카드 · 국권 피탈 7년 뒤인 1917년, 상하이 독립운동가들의 선언]\n"황제권이 소멸한 때가 곧 민권이 발생하는 때" — 「대동단결 선언」(1917) · "복동의 바람은 어디로 이어졌을까?"'
+          },
+          {
+            bg: 'bg_ending_1910',
+            prop: null,
+            char: null,
+            title: '📜 2부 역사 흐름 핵심 정리 (1895~1910)',
+            text: '1896 독립 협회(만민 공동회·헌의 6조) → 1897 대한 제국(황제 전제 정치·칙령 제41호) → 1905 을사늑약 → 애국 계몽 운동(헌정 연구회·신민회)\n\n: 전제 군주제를 넘어 국민이 주인이 되는 민주 공화국(민권)의 씨앗이 되었습니다.'
+          },
+          {
+            type: 'reply',
+            bg: 'bg_museum_2026',
+            title: '🏅 2부 모둠 배달 등급 및 답장 작성',
+            prompt: '배달 일지에 "복동에게 보내는 답장"을 세 줄로 쓰세요. 나라를 지키려던 노력이 무엇을 바랐고 왜 좌절되었는지 담아 보세요. (작성 후 교사 확인 도장 받기)'
+          }
+        ]
+      }
+    };
+
+    /* =========================================================================
+     * 9. 메인 화면 라우터 및 1부·2부 인터랙티브 스테이지 렌더러
+     * ========================================================================= */
+    let stepLocalState = {};
+
+    function resetStepLocalState() {
+      stepLocalState = {
+        matching: {},
+        selectedOptions: [],
+        orderedList: [],
+        bucketPlacements: {},
+        selectedBucketCard: null,
+        dials: [0, 0, 0, 0],
+        anamorphicVal: 0,
+        letterOpen: true,
+        wrongMsg: ''
+      };
+    }
+
+    function renderApp() {
+      const stage = document.getElementById('appStage');
+      const currentScenario = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+
+      if (!gameState.started || gameState.screen === 'start') {
+        stage.innerHTML = `
+          <div class="card" style="text-align:center;">
+            <span class="tag tag-web" style="margin-bottom:8px;">
+              ${teacherConfig.part === 1 ? '1차시 · 1부 (1876~1894)' : '2차시 · 2부 (1895~1910)'}
+            </span>
+            <h1 class="serif" style="font-size:1.85rem;color:var(--indigo);margin-bottom:6px;">
+              ${teacherConfig.part === 1 ? '주인 잃은 우편가방 : 개혁을 바란 사람들' : '주인 잃은 우편가방 : 나라를 지키려 한 사람들'}
+            </h1>
+            <p style="color:var(--ink-soft);max-width:580px;margin:0 auto 16px;">
+              우정총국 전시실의 낡은 우편가방이 열리며 시간이 거꾸로 흐릅니다.<br/>
+              가짝과 나짝이 힘을 모아 주인 잃은 편지 4통을 배달하고 기록 상자를 여십시오.
+            </p>
+
+            <div style="max-width:340px;margin:0 auto 18px;">
+              ${safeImg('bag_locked.png', '잠긴 우편가방', '', 'width:180px;height:180px;object-fit:contain;margin:0 auto;')}
+            </div>
+
+            <div style="text-align:left;margin-bottom:18px;">
+              <h2 class="serif" style="font-size:1.1rem;color:var(--indigo);margin-bottom:8px;">🤝 모둠 내 4인 역할 분담 (가짝 · 나짝 동시 진행)</h2>
+              <div class="role-grid">
+                <div class="role-item">
+                  ${safeImg('role_recorder.png', '기록관')}
+                  <div>
+                    <strong style="color:var(--indigo);">가짝 ① 기록관 (편지 ①②)</strong>
+                    <div style="font-size:0.86rem;color:var(--ink-soft);">『역사②』 교과서 및 사료 조항 대조</div>
+                  </div>
+                </div>
+                <div class="role-item">
+                  ${safeImg('role_navigator.png', '지도관')}
+                  <div>
+                    <strong style="color:var(--indigo);">가짝 ② 지도관 (편지 ①②)</strong>
+                    <div style="font-size:0.86rem;color:var(--ink-soft);">격자 지도 경로 작도 · 1500iD 방향 자물쇠</div>
+                  </div>
+                </div>
+                <div class="role-item">
+                  ${safeImg('role_cipher.png', '암호관')}
+                  <div>
+                    <strong style="color:var(--ochre);">나짝 ③ 암호관 (편지 ③④)</strong>
+                    <div style="font-size:0.86rem;color:var(--ink-soft);">UV 라이트 펜 전담 · 자모 암호 원판 해독</div>
+                  </div>
+                </div>
+                <div class="role-item">
+                  ${safeImg('role_detective.png', '수사관')}
+                  <div>
+                    <strong style="color:var(--ochre);">나짝 ④ 수사관 (편지 ③④)</strong>
+                    <div style="font-size:0.86rem;color:var(--ink-soft);">5글자 영어 자물쇠 · 교실 코르크 보드 탐색</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="max-width:420px;margin:0 auto;">
+              <label for="teamNameInput" style="display:block;font-weight:700;margin-bottom:6px;">모둠 이름을 입력하고 배달을 시작하시오</label>
+              <input type="text" id="teamNameInput" placeholder="예: 3반 4모둠" value="${gameState.teamName}"
+                style="width:100%;padding:12px 14px;border-radius:10px;border:2px solid var(--indigo);text-align:center;font-size:1.1rem;margin-bottom:12px;" />
+              <button class="btn-primary" style="width:100%;font-size:1.1rem;" onclick="handleStartGame()">
+                📮 우편가방 열기 (40분 타이머 시작)
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      renderScenarioScreen(stage, currentScenario);
+    }
+
+    function handleStartGame() {
+      const name = document.getElementById('teamNameInput')?.value.trim();
+      if (!name) {
+        showToast('모둠 이름을 입력해 주세요!');
+        return;
+      }
+      SoundFX.ensure();
+      gameState.started = true;
+      gameState.teamName = name;
+      gameState.screen = 'prologue';
+      gameState.prologueIdx = 0;
+      saveState();
+      updateHud();
+      renderApp();
+    }
+
+    function renderScenarioScreen(stage, sc) {
+      if (gameState.screen === 'prologue') {
+        const slides = sc.prologue;
+        const idx = Math.min(gameState.prologueIdx, slides.length - 1);
+        const slide = slides[idx];
+        stage.innerHTML = `
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <span class="tag tag-web">프롤로그 ${idx + 1} / ${slides.length}</span>
+              <span style="font-size:0.88rem;color:var(--ink-soft);">${slide.speaker}</span>
+            </div>
+            ${slide.bg ? `<div style="margin-bottom:14px;text-align:center;">${safeImg(slide.bg, slide.speaker, '', 'width:100%;max-height:290px;object-fit:cover;border-radius:12px;border:1px solid var(--border);')}</div>` : ''}
+            <div style="display:flex;align-items:flex-start;gap:14px;background:var(--bg-card-sub);padding:16px;border-radius:12px;border:1px solid var(--border);">
+              ${slide.char ? safeImg(slide.char, '우체부 복동', '', 'width:84px;height:105px;object-fit:contain;flex-shrink:0;') : ''}
+              <p class="serif" style="white-space:pre-line;font-size:1.05rem;">${slide.text}</p>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:16px;gap:10px;">
+              ${idx > 0 ? `<button class="btn-outline" onclick="movePrologue(-1)">◀ 이전</button>` : `<div></div>`}
+              <button class="btn-primary" onclick="movePrologue(1)">
+                ${idx < slides.length - 1 ? '다음 장면 ▶' : '🔐 가방 자물쇠 관문으로 ▶'}
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (gameState.screen === 'gate') {
+        const g = sc.gate;
+        const hintKey = `gate_${teacherConfig.part}`;
+        const hintShown = Boolean(gameState.usedHints[hintKey]);
+        stage.innerHTML = `
+          <div class="card card-web" style="text-align:center;">
+            <span class="tag tag-web" style="margin-bottom:8px;">관문 · 우편가방 잠금 해제</span>
+            <h2 class="serif" style="font-size:1.45rem;color:var(--indigo);margin-bottom:8px;">가방 버클의 4자리 자물쇠를 여시오</h2>
+            <div style="margin:10px auto;">
+              ${safeImg(gameState.gateSolved ? 'bag_open.png' : 'bag_locked.png', '우편가방', '', 'width:150px;height:150px;object-fit:contain;margin:0 auto;')}
+            </div>
+            <div class="source-box" style="text-align:left;max-width:540px;margin:0 auto 14px;">
+              <strong>🔎 ${g.clue}</strong>
+            </div>
+
+            ${!gameState.gateSolved ? `
+              <div class="dial-row">
+                ${[0, 1, 2, 3].map(i => `
+                  <div class="dial-unit">
+                    <button type="button" onclick="spinGateDial(${i}, 1)" aria-label="${i + 1}번째 숫자 올리기">▲</button>
+                    <div class="dial-val">${stepLocalState.dials[i] || 0}</div>
+                    <button type="button" onclick="spinGateDial(${i}, -1)" aria-label="${i + 1}번째 숫자 내리기">▼</button>
+                  </div>
+                `).join('')}
+              </div>
+
+              ${stepLocalState.wrongMsg ? `
+                <div style="background:var(--vermilion-tint);color:var(--vermilion);padding:10px 14px;border-radius:10px;font-weight:700;margin-bottom:12px;">
+                  ⚠️ ${stepLocalState.wrongMsg}
+                </div>
+              ` : ''}
+
+              <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+                <button class="btn-outline" onclick="unlockHint('${hintKey}', 0)">💡 복동에게 묻기 (무료 귀띔)</button>
+                <button class="btn-primary" onclick="checkGateAnswer()">🔓 자물쇠 열기</button>
+              </div>
+
+              ${hintShown ? `
+                <div style="margin-top:12px;background:var(--ochre-bg);border:1px solid var(--ochre-border);padding:10px 14px;border-radius:10px;color:var(--ochre);font-weight:700;">
+                  💡 복동의 귀띔: ${g.hint1}
+                </div>
+              ` : ''}
+            ` : `
+              <div style="background:var(--emerald-tint);border:1.5px solid var(--emerald);color:var(--emerald);padding:14px;border-radius:12px;margin-top:12px;font-weight:700;">
+                ✅ ${g.successText}
+              </div>
+              <button class="btn-primary" style="margin-top:14px;" onclick="goToHub()">📮 가방 속 편지 4통 보기 (허브) ▶</button>
+            `}
+          </div>
+        `;
+        return;
+      }
+
+      if (gameState.screen === 'hub') {
+        const keys = ['l1', 'l2', 'l3', 'l4'];
+        const doneCount = keys.filter(k => gameState.letters[k].done).length;
+        const hubBg = teacherConfig.part === 1 ? 'bg_storage_1895.png' : 'bg_storage_1910.png';
+
+        stage.innerHTML = `
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+              <div>
+                <h2 class="serif" style="font-size:1.4rem;color:var(--indigo);">📬 우편가방 배달 허브</h2>
+                <p style="font-size:0.92rem;color:var(--ink-soft);">가짝(편지 ①②)과 나짝(편지 ③④)이 각자 맡은 편지를 동시에 열어 배달하시오.</p>
+              </div>
+              <span class="tag ${doneCount === 4 ? 'tag-done' : 'tag-web'}" style="font-size:0.95rem;padding:6px 12px;">
+                배달 완료: ${doneCount} / 4통
+              </span>
+            </div>
+
+            ${safeImg(hubBg, '우체사 창고', '', 'width:100%;max-height:190px;object-fit:cover;border-radius:12px;margin-bottom:14px;border:1px solid var(--border);')}
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:12px;margin-bottom:18px;">
+              ${keys.map(k => {
+                const lt = sc.letters[k];
+                const st = gameState.letters[k];
+                const isGa = (k === 'l1' || k === 'l2');
+                return `
+                  <div style="border:2px solid ${st.done ? 'var(--emerald)' : (isGa ? 'var(--indigo)' : 'var(--ochre-border)')};border-radius:12px;padding:14px;background:var(--bg-card-sub);display:flex;flex-direction:column;justify-content:space-between;gap:10px;">
+                    <div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;">
+                        <span class="tag ${isGa ? 'tag-web' : 'tag-phys'}">${lt.pairLabel}</span>
+                        <span class="tag ${st.done ? 'tag-done' : ''}" style="${st.done ? '' : 'background:var(--bg-card);border:1px solid var(--border);'}">
+                          ${st.done ? '💮 배달 완료' : (st.step > 0 ? `읽는 중 ${st.step + 1}/3` : '봉인됨')}
+                        </span>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+                        ${safeImg(st.done ? 'envelope_open.png' : 'envelope_sealed.png', '봉투', '', 'width:52px;height:40px;object-fit:contain;flex-shrink:0;')}
+                        <div>
+                          <h3 class="serif" style="font-size:1.08rem;">${lt.title}</h3>
+                          <div style="font-size:0.85rem;color:var(--ink-soft);">발신인: ${lt.sender}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="${st.done ? 'btn-outline' : 'btn-primary'}" style="width:100%;" onclick="openLetter('${k}')">
+                      ${st.done ? '배달 완료 기록 보기' : (st.step > 0 ? '이어서 배달하기 ▶' : '편지 봉인 열기 ▶')}
+                    </button>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <div style="background:var(--vermilion-tint);border:2px solid var(--vermilion);border-radius:12px;padding:16px;text-align:center;">
+              <strong style="color:var(--vermilion);display:block;font-size:1.05rem;margin-bottom:6px;">
+                💮 도장 4개를 모두 모았거나, 다른 짝의 배달 확인 암호를 받았나요?
+              </strong>
+              <button class="btn-vermilion" style="width:100%;max-width:420px;font-size:1.05rem;" onclick="goToMeta()">
+                레이어드 스탬프 (도장 겹치기) 화면으로 이동 ▶
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (gameState.screen === 'letter') {
+        renderLetterStage(stage, sc);
+        return;
+      }
+
+      if (gameState.screen === 'meta') {
+        renderMetaStage(stage, sc);
+        return;
+      }
+
+      if (gameState.screen === 'final') {
+        renderFinalStage(stage, sc);
+        return;
+      }
+
+      if (gameState.screen === 'ending') {
+        renderEndingStage(stage, sc);
+      }
+    }
+
+    function movePrologue(delta) {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const next = gameState.prologueIdx + delta;
+      if (next < 0) return;
+      if (next >= sc.prologue.length) {
+        gameState.screen = 'gate';
+        resetStepLocalState();
+      } else {
+        gameState.prologueIdx = next;
+      }
+      saveState();
+      renderApp();
+    }
+
+    function spinGateDial(idx, delta) {
+      stepLocalState.dials[idx] = ((stepLocalState.dials[idx] || 0) + delta + 10) % 10;
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function checkGateAnswer() {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const attempt = stepLocalState.dials.slice(0, 4).join('');
+      if (verifyAnswer(attempt, sc.gate.answerHashes)) {
+        gameState.gateSolved = true;
+        SoundFX.playSuccess();
+        saveState();
+        renderApp();
+      } else {
+        stepLocalState.wrongMsg = sc.gate.wrongFeedback;
+        renderApp();
+      }
+    }
+
+    function goToHub() {
+      gameState.screen = 'hub';
+      gameState.activeLetterId = null;
+      saveState();
+      renderApp();
+    }
+
+    function openLetter(id) {
+      gameState.screen = 'letter';
+      gameState.activeLetterId = id;
+      resetStepLocalState();
+      saveState();
+      renderApp();
+    }
+
+    /* =========================================================================
+     * 10. 편지별 3단계 퍼즐 스테이지 렌더러 & 핸들러
+     * ========================================================================= */
+    function renderLetterStage(stage, sc) {
+      const id = gameState.activeLetterId || 'l1';
+      const lt = sc.letters[id];
+      const st = gameState.letters[id];
+      const stepIdx = Math.min(st.step, 2);
+      const step = lt.steps[stepIdx];
+      const stepSolvedKey = `${id}_${stepIdx}_solved`;
+      const isStepSolved = Boolean(gameState.usedHints[stepSolvedKey]) || st.done;
+
+      const h1Key = `${id}_${stepIdx}_h1`;
+      const h2Key = `${id}_${stepIdx}_h2`;
+      const h1Open = Boolean(gameState.usedHints[h1Key]);
+      const h2Open = Boolean(gameState.usedHints[h2Key]);
+
+      let puzzleBodyHtml = '';
+
+      if (step.type === 'matching') {
+        puzzleBodyHtml = `
+          <div class="source-box" style="white-space:pre-line;">${step.sourceQuote}</div>
+          <div style="display:grid;gap:12px;margin:14px 0;">
+            ${step.items.map((it, idx) => `
+              <div style="background:var(--bg-card-sub);border:1px solid var(--border);border-radius:10px;padding:12px;">
+                <p style="margin-bottom:8px;font-weight:700;">${idx + 1}. ${it.text}</p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  ${step.choices.map(ch => {
+                    const chosen = stepLocalState.matching[idx] === ch;
+                    return `<button type="button" class="${chosen ? 'btn-primary' : 'btn-outline'}" style="min-width:64px;"
+                      onclick="selectMatchChoice(${idx}, '${ch}')">${ch}</button>`;
+                  }).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          ${!isStepSolved ? `<button class="btn-primary" style="width:100%;" onclick="submitMatchingStep()">짝짓기 정답 확인</button>` : ''}
+        `;
+      } else if (step.type === 'physical_dir' || step.type === 'physical_eng' || step.type === 'physical_board') {
+        const dirBanner = step.type === 'physical_dir' ? `
+          <div class="lock-warning-banner">
+            <span style="font-size:1.3rem;">⚠️</span>
+            <span>[주의] 열기 전 고리를 두 번 꼭 눌러 초기화하시오! 방향은 끝까지 밀고 가운데로 복귀!</span>
+          </div>
+        ` : '';
+
+        let virtualLockHtml = '';
+        if (teacherConfig.virtualLockMode && step.type === 'physical_dir') {
+          const entered = stepLocalState.orderedList.join('');
+          virtualLockHtml = `
+            <div style="background:var(--bg-card);border:2px solid var(--indigo);border-radius:12px;padding:14px;margin:12px 0;text-align:center;">
+              <strong style="color:var(--indigo);display:block;margin-bottom:6px;">🔒 가상 방향 자물쇠 모드</strong>
+              <div style="font-size:1.3rem;font-weight:700;letter-spacing:4px;min-height:36px;background:var(--bg-card-sub);border-radius:8px;padding:6px;margin-bottom:10px;">
+                ${entered || '(고리 초기화 후 방향 입력)'}
+              </div>
+              <div style="display:flex;justify-content:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                ${['↑', '↓', '←', '→'].map(arrow => `
+                  <button type="button" class="btn-outline" style="font-size:1.3rem;min-width:56px;" onclick="pushVirtualDir('${arrow}')">${arrow}</button>
+                `).join('')}
+              </div>
+              <div style="display:flex;justify-content:center;gap:8px;">
+                <button type="button" class="btn-outline" onclick="resetVirtualDir()">고리 2번 누르기(초기화)</button>
+                <button type="button" class="btn-primary" onclick="checkVirtualDirLock()">자물쇠 열기</button>
+              </div>
+            </div>
+          `;
+        } else if (teacherConfig.virtualLockMode && step.type === 'physical_eng') {
+          const letters = stepLocalState.dials.slice(0, 5).map(n => String.fromCharCode(65 + ((n % 26 + 26) % 26)));
+          virtualLockHtml = `
+            <div style="background:var(--bg-card);border:2px solid var(--indigo);border-radius:12px;padding:14px;margin:12px 0;text-align:center;">
+              <strong style="color:var(--indigo);display:block;margin-bottom:6px;">🔤 가상 5글자 영어 자물쇠 모드</strong>
+              <div class="dial-row">
+                ${[0, 1, 2, 3, 4].map(i => `
+                  <div class="dial-unit">
+                    <button type="button" onclick="spinEngDial(${i}, 1)">▲</button>
+                    <div class="dial-val">${letters[i]}</div>
+                    <button type="button" onclick="spinEngDial(${i}, -1)">▼</button>
+                  </div>
+                `).join('')}
+              </div>
+              <button type="button" class="btn-primary" onclick="checkVirtualEngLock()">영어 자물쇠 열기</button>
+            </div>
+          `;
+        }
+
+        puzzleBodyHtml = `
+          ${dirBanner}
+          <ol style="padding-left:20px;display:grid;gap:8px;margin:12px 0;font-weight:700;">
+            ${step.tasks.map(t => `<li>${t}</li>`).join('')}
+          </ol>
+          ${virtualLockHtml}
+          ${(!isStepSolved && !teacherConfig.virtualLockMode) || (!isStepSolved && step.type === 'physical_board') ? `
+            <button class="btn-ochre" style="width:100%;margin-top:8px;" onclick="completePhysicalStep()">
+              ✅ ${step.completeBtn}
+            </button>
+          ` : ''}
+        `;
+      } else if (step.type === 'text_input') {
+        puzzleBodyHtml = `
+          ${step.sourceQuote ? `<div class="source-box" style="white-space:pre-line;">${step.sourceQuote}</div>` : ''}
+          <p style="font-weight:700;margin-bottom:10px;">${step.question}</p>
+          ${!isStepSolved ? `
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <input type="text" id="stepTextInput" placeholder="${step.placeholder || '정답 입력'}"
+                onkeydown="if(event.key==='Enter') submitTextStep()"
+                style="flex:1;min-width:200px;padding:12px;border-radius:10px;border:2px solid var(--indigo);" />
+              <button type="button" class="btn-primary" onclick="submitTextStep()">확인</button>
+            </div>
+          ` : ''}
+        `;
+      } else if (step.type === 'cipher_disk') {
+        puzzleBodyHtml = `
+          <p style="font-weight:700;margin-bottom:8px;">${step.question}</p>
+          <div id="cipherDiskMount"></div>
+          ${!isStepSolved ? `
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+              <input type="text" id="stepTextInput" placeholder="${step.placeholder || '해독한 낱말 입력'}"
+                onkeydown="if(event.key==='Enter') submitTextStep()"
+                style="flex:1;min-width:200px;padding:12px;border-radius:10px;border:2px solid var(--indigo);" />
+              <button type="button" class="btn-primary" onclick="submitTextStep()">해독 완료 확인</button>
+            </div>
+          ` : ''}
+        `;
+      } else if (step.type === 'dial_3' || step.type === 'dial_4') {
+        const count = step.type === 'dial_3' ? 3 : 4;
+        puzzleBodyHtml = `
+          ${step.sourceQuote ? `<div class="source-box" style="white-space:pre-line;">${step.sourceQuote}</div>` : ''}
+          <p style="font-weight:700;margin-bottom:8px;">${step.question}</p>
+          ${!isStepSolved ? `
+            <div class="dial-row">
+              ${Array.from({ length: count }).map((_, i) => `
+                <div class="dial-unit">
+                  <button type="button" onclick="spinStepDial(${i}, 1)">▲</button>
+                  <div class="dial-val">${stepLocalState.dials[i] || 0}</div>
+                  <button type="button" onclick="spinStepDial(${i}, -1)">▼</button>
+                </div>
+              `).join('')}
+            </div>
+            <button type="button" class="btn-primary" style="width:100%;" onclick="submitDialStep(${count})">🔓 다이얼 자물쇠 열기</button>
+          ` : ''}
+        `;
+      } else if (step.type === 'select_n') {
+        puzzleBodyHtml = `
+          ${step.sourceQuote ? `<div class="source-box" style="white-space:pre-line;">${step.sourceQuote}</div>` : ''}
+          <p style="font-weight:700;margin-bottom:8px;">${step.question} <span style="color:var(--indigo);">(선택: ${stepLocalState.selectedOptions.length} / ${step.pickCount}개)</span></p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:8px;margin-bottom:12px;">
+            ${step.options.map((opt, idx) => {
+              const selected = stepLocalState.selectedOptions.includes(idx);
+              return `
+                <button type="button" class="${selected ? 'btn-primary' : 'btn-outline'}"
+                  style="text-align:left;justify-content:flex-start;font-size:0.95rem;"
+                  onclick="toggleSelectOption(${idx}, ${step.pickCount})">
+                  ${selected ? '☑️' : '⬜'} ${opt.text}
+                </button>
+              `;
+            }).join('')}
+          </div>
+          ${!isStepSolved ? `<button type="button" class="btn-primary" style="width:100%;" onclick="submitSelectNStep()">선택 완료 확인</button>` : ''}
+        `;
+      } else if (step.type === 'order_seq') {
+        puzzleBodyHtml = `
+          <p style="font-weight:700;margin-bottom:8px;">${step.question}</p>
+          <div style="background:var(--bg-card-sub);border:1.5px dashed var(--indigo);border-radius:10px;padding:12px;margin-bottom:10px;min-height:58px;">
+            <div style="font-size:0.84rem;color:var(--ink-soft);margin-bottom:6px;">배열된 순서 (${stepLocalState.orderedList.length} / ${step.cards.length}):</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              ${stepLocalState.orderedList.map((c, idx) => `
+                <span class="tag tag-web" style="font-size:0.9rem;padding:5px 10px;">${idx + 1}. ${c}</span>
+              `).join('')}
+            </div>
+          </div>
+          <div style="display:grid;gap:8px;margin-bottom:12px;">
+            ${step.cards.map(c => {
+              const used = stepLocalState.orderedList.includes(c);
+              return `
+                <button type="button" class="btn-outline" ${used ? 'disabled' : ''} style="text-align:left;"
+                  onclick="pushOrderCard('${c.replace(/'/g, "\\'")}')">
+                  ${used ? '✓ 배치됨 · ' : '+ '} ${c}
+                </button>
+              `;
+            }).join('')}
+          </div>
+          ${!isStepSolved ? `
+            <div style="display:flex;gap:8px;">
+              <button type="button" class="btn-outline" onclick="resetOrderCards()">↺ 다시 놓기</button>
+              <button type="button" class="btn-primary" style="flex:1;" onclick="submitOrderSeqStep()">순서 확인</button>
+            </div>
+          ` : ''}
+        `;
+      } else if (step.type === 'bucket_sort') {
+        const unplaced = step.cards.map((c, idx) => ({ ...c, idx })).filter(c => !stepLocalState.bucketPlacements[c.idx]);
+        puzzleBodyHtml = `
+          <p style="font-weight:700;margin-bottom:8px;">${step.question}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:10px;margin-bottom:12px;">
+            ${step.buckets.map(b => {
+              const placedHere = step.cards.map((c, idx) => ({ ...c, idx })).filter(c => stepLocalState.bucketPlacements[c.idx] === b.id);
+              return `
+                <div onclick="placeInBucket('${b.id}')" style="cursor:pointer;border:2px solid ${b.id === 'limit' ? 'var(--indigo)' : 'var(--ochre)'};border-radius:12px;padding:12px;background:var(--bg-card-sub);min-height:130px;">
+                  <strong style="display:block;margin-bottom:8px;color:${b.id === 'limit' ? 'var(--indigo)' : 'var(--ochre)'};">${b.label} (여기를 눌러 담기)</strong>
+                  <div style="display:grid;gap:6px;">
+                    ${placedHere.map(c => `
+                      <div onclick="event.stopPropagation();removeFromBucket(${c.idx})" style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:8px;font-size:0.86rem;">
+                        ${c.text} ${isStepSolved ? `<strong style="color:var(--emerald);display:block;margin-top:3px;">[${c.source}]</strong>` : '<span style="color:var(--ink-soft);font-size:0.78rem;"> (누르면 빼기)</span>'}
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          ${unplaced.length > 0 ? `
+            <div style="margin-bottom:12px;">
+              <div style="font-size:0.86rem;font-weight:700;margin-bottom:6px;">분류할 조항 카드 (카드를 먼저 누른 뒤 위 바구니를 누르시오):</div>
+              <div style="display:grid;gap:6px;">
+                ${unplaced.map(c => {
+                  const active = stepLocalState.selectedBucketCard === c.idx;
+                  return `
+                    <button type="button" class="${active ? 'btn-primary' : 'btn-outline'}" style="text-align:left;font-size:0.9rem;line-height:1.45;"
+                      onclick="selectBucketCard(${c.idx})">
+                      ${active ? '👉 [선택됨] ' : ''}${c.text}
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${!isStepSolved ? `<button type="button" class="btn-primary" style="width:100%;" onclick="submitBucketSortStep()">분류 결과 확인</button>` : ''}
+        `;
+      } else if (step.type === 'anamorphic') {
+        const angle = stepLocalState.anamorphicVal || 0;
+        // angle 0 -> scaleY = 7, angle 100 -> scaleY = 1
+        const scaleY = (7 - (angle / 100) * 6).toFixed(2);
+        puzzleBodyHtml = `
+          <p style="font-weight:700;margin-bottom:8px;">${step.question}</p>
+          <div style="background:#fbf5e6;border:2px solid var(--border);border-radius:12px;padding:14px;text-align:center;margin-bottom:12px;overflow:hidden;">
+            <svg viewBox="0 0 320 150" style="width:100%;max-width:360px;height:150px;">
+              <g transform="translate(160, 75) scale(1, ${scaleY})">
+                <text x="0" y="0" text-anchor="middle" dominant-baseline="central" font-family="'Gowun Batang', serif" font-size="38" font-weight="700" fill="#1d3c63" letter-spacing="8">
+                  石島 석도
+                </text>
+              </g>
+            </svg>
+            <div style="max-width:340px;margin:8px auto 0;">
+              <label for="anamorphicSlider" style="display:block;font-size:0.88rem;font-weight:700;color:var(--indigo);margin-bottom:4px;">
+                📐 보는 각도 조절 슬라이더: ${angle}%
+              </label>
+              <input type="range" id="anamorphicSlider" min="0" max="100" value="${angle}"
+                oninput="updateAnamorphic(this.value)" style="width:100%;height:32px;cursor:pointer;" />
+            </div>
+          </div>
+          ${!isStepSolved ? `
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <input type="text" id="stepTextInput" placeholder="${step.placeholder || '정답 입력'}"
+                onkeydown="if(event.key==='Enter') submitTextStep()"
+                style="flex:1;min-width:200px;padding:12px;border-radius:10px;border:2px solid var(--indigo);" />
+              <button type="button" class="btn-primary" onclick="submitTextStep()">확인</button>
+            </div>
+          ` : ''}
+        `;
+      }
+
+      stage.innerHTML = `
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+            <button class="btn-outline" onclick="goToHub()">◀ 배달 허브로</button>
+            <div style="display:flex;gap:6px;">
+              ${[0, 1, 2].map(i => `
+                <span class="tag ${i === stepIdx ? 'tag-web' : (i < st.step || st.done ? 'tag-done' : '')}"
+                  style="${i === stepIdx || i < st.step || st.done ? '' : 'background:var(--bg-card);border:1px solid var(--border);'}">
+                  ${i + 1}단계 ${i < st.step || st.done ? '✓' : ''}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- 편지 원문 접기/펼치기 -->
+          <div class="card" style="padding:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;" onclick="toggleLetterBody()">
+              <div style="display:flex;align-items:center;gap:10px;">
+                ${safeImg(lt.portrait, lt.sender, 'sender-avatar')}
+                <div>
+                  <span class="tag ${id === 'l1' || id === 'l2' ? 'tag-web' : 'tag-phys'}">${lt.pairLabel}</span>
+                  <h2 class="serif" style="font-size:1.25rem;margin-top:3px;">${lt.title} · ${lt.sender}</h2>
+                </div>
+              </div>
+              <button type="button" class="btn-outline" style="min-height:38px;padding:6px 12px;font-size:0.86rem;">
+                ${stepLocalState.letterOpen ? '편지 접기 ▲' : '편지 펼치기 ▼'}
+              </button>
+            </div>
+
+            ${stepLocalState.letterOpen ? `
+              <div style="margin-top:12px;">
+                ${safeImg(lt.bg, lt.title, '', 'width:100%;max-height:170px;object-fit:cover;border-radius:10px;margin-bottom:10px;')}
+                <div class="letter-paper" style="white-space:pre-line;">${lt.body}</div>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- 현재 단계 퍼즐 카드 -->
+          <div class="card ${step.mode === 'physical' ? 'card-physical' : 'card-web'}">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+              <span class="tag ${step.mode === 'physical' ? 'tag-phys' : 'tag-web'}">
+                ${step.mode === 'physical' ? '🔐 교실 실물 활동' : '💻 웹 태블릿 활동'}
+              </span>
+            </div>
+            <h3 class="serif" style="font-size:1.25rem;margin-bottom:12px;">${step.title}</h3>
+
+            ${puzzleBodyHtml}
+
+            ${stepLocalState.wrongMsg ? `
+              <div style="margin-top:12px;background:var(--vermilion-tint);border:1.5px solid var(--vermilion);color:var(--vermilion);padding:12px 14px;border-radius:10px;font-weight:700;">
+                ⚠️ ${stepLocalState.wrongMsg}
+              </div>
+            ` : ''}
+
+            <!-- 복동에게 묻기 (2단계 힌트) -->
+            ${!isStepSolved ? `
+              <div style="margin-top:16px;padding-top:12px;border-top:1px dashed var(--border);display:flex;flex-wrap:wrap;gap:8px;">
+                <button type="button" class="btn-outline" style="font-size:0.9rem;min-height:40px;" onclick="unlockHint('${h1Key}', 0)">
+                  💡 복동에게 묻기 1단계 (무료)
+                </button>
+                <button type="button" class="btn-outline" style="font-size:0.9rem;min-height:40px;" onclick="unlockHint('${h2Key}', 1)">
+                  🔑 복동에게 묻기 2단계 (${gameState.freeSecondHintVoucher > 0 ? '무료권 1장 사용' : '힌트 우표 1장 차감'})
+                </button>
+              </div>
+            ` : ''}
+
+            ${h1Open ? `
+              <div style="margin-top:10px;background:var(--bg-card-sub);border-left:4px solid var(--ochre);padding:10px 14px;border-radius:8px;font-size:0.94rem;">
+                <strong>💡 1단계 귀띔:</strong> ${step.hint1}
+              </div>
+            ` : ''}
+            ${h2Open ? `
+              <div style="margin-top:8px;background:var(--ochre-bg);border-left:4px solid var(--vermilion);padding:10px 14px;border-radius:8px;font-size:0.94rem;">
+                <strong>🔑 2단계 핵심 귀띔:</strong> ${step.hint2}
+              </div>
+            ` : ''}
+
+            <!-- 단계 성공 시 역사 해설 및 다음 진행 -->
+            ${isStepSolved ? `
+              <div style="margin-top:16px;background:var(--emerald-tint);border:2px solid var(--emerald);color:var(--emerald);padding:16px;border-radius:12px;">
+                <strong style="display:block;font-size:1.05rem;margin-bottom:6px;">✅ 해결 완료! 역사 해설</strong>
+                <p style="white-space:pre-line;color:var(--ink);font-size:0.96rem;">${step.successText}</p>
+                ${stepIdx === 2 ? `
+                  <div style="margin-top:12px;padding:12px;background:#fff;border:1.5px solid var(--vermilion);border-radius:10px;display:flex;align-items:center;gap:12px;">
+                    ${safeImg('stamp_ring.png', '도장 획득', '', 'width:52px;height:52px;object-fit:contain;flex-shrink:0;')}
+                    <div>
+                      <strong style="color:var(--vermilion);display:block;">💮 도장 ${lt.num} 획득 완료!</strong>
+                      <span style="font-size:0.88rem;color:var(--ink-soft);">다른 기기에서 도장을 불러올 때 이 편지 3단계의 정답(배달 확인 암호)을 입력하시오.</span>
+                    </div>
+                  </div>
+                ` : ''}
+                <div style="margin-top:14px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;">
+                  ${stepIdx < 2 ? `
+                    <button type="button" class="btn-primary" onclick="advanceLetterStep()">다음 단계(${stepIdx + 2}/3)로 ▶</button>
+                  ` : `
+                    <button type="button" class="btn-outline" onclick="goToHub()">배달 허브로 돌아가기</button>
+                    <button type="button" class="btn-vermilion" onclick="goToMeta()">💮 레이어드 스탬프로 이동 ▶</button>
+                  `}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+
+      if (step.type === 'cipher_disk') {
+        renderCipherDiskComponent({
+          cipherChars: step.cipherChars,
+          keySchedule: step.keySchedule,
+          containerId: 'cipherDiskMount'
+        });
+      }
+    }
+
+    function toggleLetterBody() {
+      stepLocalState.letterOpen = !stepLocalState.letterOpen;
+      renderApp();
+    }
+
+    function unlockHint(key, cost) {
+      if (gameState.usedHints[key]) return;
+      if (cost > 0) {
+        if (gameState.freeSecondHintVoucher > 0) {
+          gameState.freeSecondHintVoucher -= 1;
+          showToast('22분 무료권을 사용하여 2단계 귀띔을 열었습니다!');
+        } else if (gameState.hintStamps > 0) {
+          gameState.hintStamps -= 1;
+          showToast('힌트 우표 1장을 사용하여 2단계 귀띔을 열었습니다.');
+        } else {
+          showToast('남은 힌트 우표가 없습니다. 교과서와 편지를 다시 살펴보시오!');
+          return;
+        }
+      }
+      gameState.usedHints[key] = true;
+      saveState();
+      updateHud();
+      renderApp();
+    }
+
+    function markCurrentStepSolved() {
+      const id = gameState.activeLetterId;
+      const st = gameState.letters[id];
+      const stepIdx = st.step;
+      gameState.usedHints[`${id}_${stepIdx}_solved`] = true;
+      stepLocalState.wrongMsg = '';
+
+      if (stepIdx === 2) {
+        st.done = true;
+        SoundFX.playStamp();
+      } else {
+        SoundFX.playSuccess();
+      }
+      saveState();
+      renderApp();
+    }
+
+    function advanceLetterStep() {
+      const id = gameState.activeLetterId;
+      const st = gameState.letters[id];
+      if (st.step < 2) {
+        st.step += 1;
+        resetStepLocalState();
+        saveState();
+        renderApp();
+      }
+    }
+
+    function selectMatchChoice(itemIdx, choice) {
+      stepLocalState.matching[itemIdx] = choice;
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function submitMatchingStep() {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const step = sc.letters[gameState.activeLetterId].steps[gameState.letters[gameState.activeLetterId].step];
+      const allCorrect = step.items.every((it, idx) => stepLocalState.matching[idx] === it.answer);
+      if (allCorrect) {
+        markCurrentStepSolved();
+      } else {
+        stepLocalState.wrongMsg = step.wrongFeedback;
+        renderApp();
+      }
+    }
+
+    function completePhysicalStep() {
+      markCurrentStepSolved();
+    }
+
+    function pushVirtualDir(arrow) {
+      if (stepLocalState.orderedList.length < 8) {
+        stepLocalState.orderedList.push(arrow);
+        stepLocalState.wrongMsg = '';
+        renderApp();
+      }
+    }
+
+    function resetVirtualDir() {
+      stepLocalState.orderedList = [];
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function checkVirtualDirLock() {
+      const expected = teacherConfig.part === 1 ? teacherConfig.vLockDirP1 : teacherConfig.vLockDirP2;
+      const attempt = stepLocalState.orderedList.join('');
+      if (attempt === expected) {
+        markCurrentStepSolved();
+      } else {
+        stepLocalState.wrongMsg = '방향 순서가 맞지 않소. "고리 2번 누르기(초기화)"를 누른 뒤 다시 입력하시오.';
+        renderApp();
+      }
+    }
+
+    function spinEngDial(idx, delta) {
+      stepLocalState.dials[idx] = ((stepLocalState.dials[idx] || 0) + delta + 26) % 26;
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function checkVirtualEngLock() {
+      const expected = (teacherConfig.part === 1 ? teacherConfig.vLockEngP1 : teacherConfig.vLockEngP2).toUpperCase();
+      const attempt = stepLocalState.dials.slice(0, 5).map(n => String.fromCharCode(65 + ((n % 26 + 26) % 26))).join('');
+      if (attempt === expected) {
+        markCurrentStepSolved();
+      } else {
+        stepLocalState.wrongMsg = '다섯 글자 영어 단어가 맞지 않소. 사건 카드 순서를 다시 확인하시오.';
+        renderApp();
+      }
+    }
+
+    function submitTextStep() {
+      const val = document.getElementById('stepTextInput')?.value || '';
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const step = sc.letters[gameState.activeLetterId].steps[gameState.letters[gameState.activeLetterId].step];
+      if (verifyAnswer(val, step.answerHashes)) {
+        markCurrentStepSolved();
+      } else {
+        stepLocalState.wrongMsg = step.wrongFeedback;
+        renderApp();
+      }
+    }
+
+    function spinStepDial(idx, delta) {
+      stepLocalState.dials[idx] = ((stepLocalState.dials[idx] || 0) + delta + 10) % 10;
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function submitDialStep(count) {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const step = sc.letters[gameState.activeLetterId].steps[gameState.letters[gameState.activeLetterId].step];
+      const attempt = stepLocalState.dials.slice(0, count).join('');
+      if (verifyAnswer(attempt, step.answerHashes)) {
+        markCurrentStepSolved();
+      } else {
+        stepLocalState.wrongMsg = step.wrongFeedback;
+        renderApp();
+      }
+    }
+
+    function toggleSelectOption(idx, pickCount) {
+      const arr = stepLocalState.selectedOptions;
+      const pos = arr.indexOf(idx);
+      if (pos >= 0) {
+        arr.splice(pos, 1);
+      } else {
+        if (arr.length >= pickCount) arr.shift();
+        arr.push(idx);
+      }
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function submitSelectNStep() {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const step = sc.letters[gameState.activeLetterId].steps[gameState.letters[gameState.activeLetterId].step];
+      if (stepLocalState.selectedOptions.length !== step.pickCount) {
+        stepLocalState.wrongMsg = `정확히 ${step.pickCount}개를 선택해야 하오.`;
+        renderApp();
+        return;
+      }
+      const allTarget = stepLocalState.selectedOptions.every(i => step.options[i]?.isTarget);
+      if (allTarget) {
+        markCurrentStepSolved();
+      } else {
+        stepLocalState.wrongMsg = step.wrongFeedback;
+        renderApp();
+      }
+    }
+
+    function pushOrderCard(cardText) {
+      if (!stepLocalState.orderedList.includes(cardText)) {
+        stepLocalState.orderedList.push(cardText);
+        stepLocalState.wrongMsg = '';
+        renderApp();
+      }
+    }
+
+    function resetOrderCards() {
+      stepLocalState.orderedList = [];
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function submitOrderSeqStep() {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const step = sc.letters[gameState.activeLetterId].steps[gameState.letters[gameState.activeLetterId].step];
+      if (stepLocalState.orderedList.length !== step.correctOrder.length) {
+        stepLocalState.wrongMsg = '다섯 장의 사건 카드를 모두 순서대로 배치하시오.';
+        renderApp();
+        return;
+      }
+      const ok = step.correctOrder.every((val, idx) => stepLocalState.orderedList[idx] === val);
+      if (ok) {
+        markCurrentStepSolved();
+      } else {
+        stepLocalState.wrongMsg = step.wrongFeedback;
+        renderApp();
+      }
+    }
+
+    function selectBucketCard(cardIdx) {
+      stepLocalState.selectedBucketCard = cardIdx;
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function placeInBucket(bucketId) {
+      if (stepLocalState.selectedBucketCard === null) {
+        showToast('먼저 아래의 조항 카드를 하나 누르세요.');
+        return;
+      }
+      stepLocalState.bucketPlacements[stepLocalState.selectedBucketCard] = bucketId;
+      stepLocalState.selectedBucketCard = null;
+      stepLocalState.wrongMsg = '';
+      renderApp();
+    }
+
+    function removeFromBucket(cardIdx) {
+      delete stepLocalState.bucketPlacements[cardIdx];
+      renderApp();
+    }
+
+    function submitBucketSortStep() {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const step = sc.letters[gameState.activeLetterId].steps[gameState.letters[gameState.activeLetterId].step];
+      if (Object.keys(stepLocalState.bucketPlacements).length !== step.cards.length) {
+        stepLocalState.wrongMsg = '일곱 장의 카드를 모두 두 바구니 중 하나에 담으시오.';
+        renderApp();
+        return;
+      }
+      const ok = step.cards.every((c, idx) => stepLocalState.bucketPlacements[idx] === c.bucket);
+      if (ok) {
+        markCurrentStepSolved();
+      } else {
+        stepLocalState.wrongMsg = step.wrongFeedback;
+        renderApp();
+      }
+    }
+
+    function updateAnamorphic(val) {
+      stepLocalState.anamorphicVal = Number(val);
+      renderApp();
+    }
+
+    /* =========================================================================
+     * 11. 메타 퍼즐 (레이어드 스탬프), 최종 나무상자, 엔딩 화면
+     * ========================================================================= */
+    function goToMeta() {
+      gameState.screen = 'meta';
+      saveState();
+      renderApp();
+    }
+
+    function rotateStamp(idx) {
+      const keys = ['l1', 'l2', 'l3', 'l4'];
+      if (!gameState.letters[keys[idx]].done) return;
+      gameState.stampRotations[idx] = (gameState.stampRotations[idx] + 1) % 4;
+      SoundFX.playStamp();
+      saveState();
+      renderApp();
+    }
+
+    function syncStampByCode(idx) {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const keys = ['l1', 'l2', 'l3', 'l4'];
+      const lt = sc.letters[keys[idx]];
+      const inputEl = document.getElementById(`syncInput_${idx}`);
+      const val = inputEl ? inputEl.value : '';
+      if (verifyAnswer(val, makeHashes(lt.confirmCodes))) {
+        gameState.letters[keys[idx]].done = true;
+        gameState.letters[keys[idx]].step = 3;
+        SoundFX.playStamp();
+        saveState();
+        showToast(`💮 ${lt.title} 도장을 불러왔습니다!`);
+        renderApp();
+      } else {
+        showToast('배달 확인 암호(해당 편지 3단계의 최종 정답)가 일치하지 않습니다.');
+      }
+    }
+
+    function renderMetaStage(stage, sc) {
+      const meta = sc.meta;
+      const keys = ['l1', 'l2', 'l3', 'l4'];
+      const allUnlocked = keys.every(k => gameState.letters[k].done);
+
+      // 아직 잠긴 도장은 정답 각도가 드러나지 않도록 의도적으로 어긋난 각도를 전달
+      const effectiveRotations = keys.map((k, idx) => {
+        if (gameState.letters[k].done) return gameState.stampRotations[idx];
+        return (meta.stamps[idx].targetRot + 2) % 4;
+      });
+
+      const { allAligned, svg } = renderLayeredMetaSVG(teacherConfig.part, effectiveRotations);
+      const isComplete = allUnlocked && allAligned;
+
+      if (isComplete && !gameState.metaSolved) {
+        gameState.metaSolved = true;
+        SoundFX.playSuccess();
+        saveState();
+      }
+
+      stage.innerHTML = `
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+            <button class="btn-outline" onclick="goToHub()">◀ 배달 허브로</button>
+            <span class="tag tag-stamp" style="background:var(--vermilion-tint);color:var(--vermilion);">메타 퍼즐 · 레이어드 스탬프</span>
+          </div>
+
+          <h2 class="serif" style="font-size:1.4rem;color:var(--indigo);margin-bottom:6px;">${meta.title}</h2>
+          <p style="font-size:0.94rem;color:var(--ink-soft);margin-bottom:14px;">${meta.guide}</p>
+
+          <!-- 4겹 합성 엽서/약도 영역 -->
+          <div style="text-align:center;margin-bottom:18px;position:relative;">
+            ${svg}
+            ${!allUnlocked ? `
+              <p style="font-size:0.86rem;color:var(--vermilion);font-weight:700;margin-top:6px;">
+                ※ 도장 4개를 모두 모아야 겹쳐진 그림이 온전히 드러납니다. 다른 짝 기기의 도장은 아래에서 '배달 확인 암호'로 불러오시오.
+              </p>
+            ` : ''}
+          </div>
+
+          ${isComplete ? `
+            <div style="background:var(--emerald-tint);border:2px solid var(--emerald);color:var(--emerald);padding:16px;border-radius:12px;margin-bottom:16px;text-align:center;">
+              <strong style="display:block;font-size:1.08rem;margin-bottom:8px;">🎉 ${meta.completeMsg}</strong>
+              <button class="btn-primary" style="font-size:1.05rem;" onclick="goToFinal()">
+                📦 나무상자 열기 및 엔딩 암호 입력 ▶
+              </button>
+            </div>
+          ` : ''}
+
+          <!-- 도장 4개 컨트롤 그리드 -->
+          <div class="stamps-grid">
+            ${meta.stamps.map((stInfo, idx) => {
+              const unlocked = gameState.letters[stInfo.id].done;
+              const rot = gameState.stampRotations[idx];
+              if (!unlocked) {
+                return `
+                  <div class="stamp-card" style="border-style:dashed;">
+                    <div style="width:96px;height:96px;border-radius:50%;border:2px dashed var(--border);margin:4px auto 10px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);font-weight:700;">
+                      ${stInfo.label} 미획득
+                    </div>
+                    <p style="font-size:0.85rem;color:var(--ink-soft);margin-bottom:8px;">
+                      다른 기기에서 푼 편지 ${['①','②','③','④'][idx]}의 <strong>배달 확인 암호</strong> 입력
+                    </p>
+                    <div style="display:flex;gap:6px;">
+                      <input type="text" id="syncInput_${idx}" placeholder="확인 암호" style="flex:1;min-width:80px;padding:8px;border-radius:8px;border:1px solid var(--border);font-size:0.9rem;" />
+                      <button type="button" class="btn-outline" style="min-height:40px;padding:6px 10px;font-size:0.85rem;" onclick="syncStampByCode(${idx})">불러오기</button>
+                    </div>
+                  </div>
+                `;
+              }
+
+              // 4방향 라벨 배치 (위 0, 오른쪽 1, 아래 2, 왼쪽 3) -> 시계방향 rot만큼 회전
+              return `
+                <div class="stamp-card" style="border-color:var(--vermilion);">
+                  <div style="font-size:0.86rem;font-weight:700;color:var(--indigo);margin-bottom:6px;min-height:42px;">
+                    ${stInfo.label}. ${stInfo.q}
+                  </div>
+                  <div onclick="rotateStamp(${idx})" style="cursor:pointer;position:relative;width:190px;height:190px;margin:0 auto 8px;user-select:none;">
+                    <div style="position:absolute;top:-6px;left:50%;transform:translateX(-50%);color:var(--vermilion);font-weight:700;font-size:1rem;z-index:2;">▼ ▲</div>
+                    <svg viewBox="0 0 200 200" style="width:100%;height:100%;transition:transform 0.25s ease;transform:rotate(${rot * 90}deg);">
+                      <circle cx="100" cy="100" r="90" fill="rgba(184,32,32,0.06)" stroke="#b82020" stroke-width="4" />
+                      <circle cx="100" cy="100" r="56" fill="none" stroke="#b82020" stroke-width="2" stroke-dasharray="4 3" />
+                      <text x="100" y="100" text-anchor="middle" dominant-baseline="central" font-family="'Gowun Batang', serif" font-size="24" font-weight="700" fill="#b82020">
+                        ${['①','②','③','④'][idx]}
+                      </text>
+                      <!-- 위(0) -->
+                      <text x="100" y="28" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700" fill="#b82020">${stInfo.choices[0]}</text>
+                      <!-- 오른쪽(1) -->
+                      <g transform="translate(172, 100) rotate(90)">
+                        <text x="0" y="0" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700" fill="#b82020">${stInfo.choices[1]}</text>
+                      </g>
+                      <!-- 아래(2) -->
+                      <g transform="translate(100, 172) rotate(180)">
+                        <text x="0" y="0" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700" fill="#b82020">${stInfo.choices[2]}</text>
+                      </g>
+                      <!-- 왼쪽(3) -->
+                      <g transform="translate(28, 100) rotate(270)">
+                        <text x="0" y="0" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700" fill="#b82020">${stInfo.choices[3]}</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <button type="button" class="btn-outline" style="width:100%;min-height:40px;font-size:0.88rem;color:var(--vermilion);border-color:var(--vermilion);" onclick="rotateStamp(${idx})">
+                    ↻ 도장 90° 돌리기
+                  </button>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function goToFinal() {
+      gameState.screen = 'final';
+      resetStepLocalState();
+      saveState();
+      renderApp();
+    }
+
+    function renderFinalStage(stage, sc) {
+      const f = sc.final;
+      stage.innerHTML = `
+        <div class="card card-physical" style="text-align:center;">
+          <div style="text-align:left;margin-bottom:8px;">
+            <button class="btn-outline" onclick="goToMeta()">◀ 레이어드 스탬프로</button>
+          </div>
+          <span class="tag tag-phys" style="margin-bottom:8px;">최종 관문 · 나무상자(기록 상자)</span>
+          <h2 class="serif" style="font-size:1.5rem;color:var(--ochre);margin-bottom:10px;">기록 상자를 열고 엔딩 암호를 입력하시오</h2>
+
+          <div style="margin:12px auto;">
+            ${safeImg('record_box_closed.png', '나무상자', '', 'width:190px;height:150px;object-fit:contain;margin:0 auto;')}
+          </div>
+
+          <div class="source-box" style="max-width:520px;margin:0 auto 16px;text-align:left;">
+            <strong>📦 ${f.instruction}</strong>
+          </div>
+
+          <div style="max-width:420px;margin:0 auto;">
+            <label for="endingCodeInput" style="display:block;font-weight:700;margin-bottom:6px;">상자 속 쪽지에 적힌 엔딩 암호 (두 글자)</label>
+            <input type="text" id="endingCodeInput" placeholder="엔딩 암호 입력"
+              onkeydown="if(event.key==='Enter') submitEndingCode()"
+              style="width:100%;padding:12px;border-radius:10px;border:2px solid var(--indigo);text-align:center;font-size:1.15rem;margin-bottom:12px;" />
+            <button type="button" class="btn-primary" style="width:100%;font-size:1.1rem;" onclick="submitEndingCode()">
+              ✨ 엔딩 암호 확인 및 배달 완수
+            </button>
+          </div>
+
+          ${stepLocalState.wrongMsg ? `
+            <div style="margin-top:12px;background:var(--vermilion-tint);color:var(--vermilion);padding:10px 14px;border-radius:10px;font-weight:700;">
+              ⚠️ ${stepLocalState.wrongMsg}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function submitEndingCode() {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const val = document.getElementById('endingCodeInput')?.value || '';
+      if (verifyAnswer(val, sc.final.endingHashes)) {
+        gameState.finalSolved = true;
+        gameState.screen = 'ending';
+        gameState.prologueIdx = 0;
+        SoundFX.playSuccess();
+        saveState();
+        renderApp();
+      } else {
+        stepLocalState.wrongMsg = sc.final.wrongFeedback;
+        renderApp();
+      }
+    }
+
+    function renderEndingStage(stage, sc) {
+      const slides = sc.ending;
+      const idx = Math.min(gameState.prologueIdx, slides.length - 1);
+      const slide = slides[idx];
+
+      const elapsedSec = Math.max(0, 40 * 60 - gameState.remainingSeconds);
+      const grade = gameState.hintStamps >= 5 ? '금' : gameState.hintStamps >= 3 ? '은' : '동';
+      const medalImg = grade === '금' ? 'medal_gold.png' : (grade === '은' ? 'medal_silver.png' : 'medal_bronze.png');
+
+      let bodyHtml = '';
+      if (slide.type === 'grade') {
+        bodyHtml = `
+          <div style="text-align:center;padding:12px 0;">
+            ${safeImg(medalImg, `${grade}등급 메달`, '', 'width:130px;height:130px;object-fit:contain;margin:0 auto 10px;')}
+            <h3 class="serif" style="font-size:1.5rem;color:var(--indigo);margin-bottom:6px;">배달 등급 : [${grade}등급]</h3>
+            <p style="font-size:1.05rem;font-weight:700;">
+              모둠: ${gameState.teamName} · 소요 시간: ${formatTime(elapsedSec)} · 남은 힌트 우표: ${gameState.hintStamps}장
+            </p>
+          </div>
+        `;
+      } else if (slide.type === 'reply') {
+        bodyHtml = `
+          ${slide.bg ? `<div style="margin-bottom:12px;">${safeImg(slide.bg, '2026년 귀환', '', 'width:100%;max-height:220px;object-fit:cover;border-radius:12px;')}</div>` : ''}
+          ${teacherConfig.part === 2 ? `
+            <div style="text-align:center;background:var(--bg-card-sub);border:1.5px solid var(--border);border-radius:12px;padding:12px;margin-bottom:12px;">
+              ${safeImg(medalImg, `${grade}등급 메달`, '', 'width:84px;height:84px;object-fit:contain;margin:0 auto 4px;')}
+              <strong style="color:var(--indigo);">배달 등급: [${grade}등급] · 소요 시간: ${formatTime(elapsedSec)} · 남은 우표: ${gameState.hintStamps}장</strong>
+            </div>
+          ` : ''}
+          <div class="source-box" style="white-space:pre-line;margin-bottom:12px;">${slide.prompt}</div>
+          <label for="studentReplyInput" style="display:block;font-weight:700;margin-bottom:6px;">✍️ 복동에게 보내는 세 줄 답장 (선생님께 전송)</label>
+          <textarea id="studentReplyInput" rows="3" placeholder="이곳에 모둠의 다짐과 답장을 세 줄로 적으시오..."
+            style="width:100%;padding:12px;border-radius:10px;border:2px solid var(--indigo);margin-bottom:10px;">${gameState.studentReply}</textarea>
+
+          <button id="btnSendResult" type="button" class="btn-primary" style="width:100%;font-size:1.05rem;" onclick="submitResultToTeacher()" ${gameState.resultSubmitted ? 'disabled' : ''}>
+            ${gameState.resultSubmitted ? '✅ 선생님께 배달 결과 전송 완료' : '📮 선생님께 배달 결과 전송'}
+          </button>
+
+          <p style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);font-size:0.84rem;color:var(--ink-soft);text-align:center;">
+            복동과 편지를 쓴 사람들은 지어낸 인물입니다. 사건과 사료는 『역사②』를 따랐습니다. 일부 그림은 AI로 만들었습니다.
+          </p>
+        `;
+      } else {
+        bodyHtml = `
+          ${slide.bg ? `<div style="margin-bottom:12px;">${safeImg(slide.bg, slide.title, '', 'width:100%;max-height:240px;object-fit:cover;border-radius:12px;')}</div>` : ''}
+          <div style="display:flex;align-items:center;gap:14px;background:var(--bg-card-sub);padding:16px;border-radius:12px;border:1px solid var(--border);">
+            ${slide.prop ? safeImg(slide.prop, '상자', '', 'width:96px;height:80px;object-fit:contain;flex-shrink:0;') : ''}
+            ${slide.char ? safeImg(slide.char, '복동', '', 'width:80px;height:100px;object-fit:contain;flex-shrink:0;') : ''}
+            <p class="serif" style="white-space:pre-line;font-size:1.04rem;">${slide.text}</p>
+          </div>
+        `;
+      }
+
+      stage.innerHTML = `
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <span class="tag tag-done">엔딩 ${idx + 1} / ${slides.length}</span>
+            <span style="font-size:0.88rem;color:var(--ink-soft);">${gameState.teamName}</span>
+          </div>
+          <h2 class="serif" style="font-size:1.35rem;color:var(--indigo);margin-bottom:12px;">${slide.title}</h2>
+          ${bodyHtml}
+          <div style="display:flex;justify-content:space-between;margin-top:16px;gap:10px;">
+            ${idx > 0 ? `<button class="btn-outline" onclick="moveEnding(-1)">◀ 이전</button>` : `<div></div>`}
+            ${idx < slides.length - 1 ? `<button class="btn-primary" onclick="moveEnding(1)">다음 ▶</button>` : `<div></div>`}
+          </div>
+        </div>
+      `;
+    }
+
+    function moveEnding(delta) {
+      const sc = teacherConfig.part === 1 ? SCENARIO_DATA.part1 : SCENARIO_DATA.part2;
+      const next = gameState.prologueIdx + delta;
+      if (next >= 0 && next < sc.ending.length) {
+        gameState.prologueIdx = next;
+        saveState();
+        renderApp();
+      }
+    }
+
+    // 초기화 실행
+    loadStorage();
+    updateHud();
+    startTimerLoop();
+    renderApp();
+  </script>
+</body>
+</html>
